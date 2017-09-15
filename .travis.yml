@@ -3,7 +3,8 @@ os:
   - linux
 sudo: false
 script:
-  -  "clang -coverage -c -Wall *.c"
+  - "clang -coverage -c -Wall *.c"
+  - "gcov *"
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 addons:
