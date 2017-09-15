@@ -4,14 +4,7 @@ os:
 sudo: false
 script:
   - "gcc -coverage -fprofile-arcs -c -Wall calc.c -o calc"
-  - "./calc.o"
+  - "./calc"
   - "gcov calc.c"
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-addons:
-  apt:
-    packages:
-      - curl
-      - wget
-      - gcc
-      - curl
