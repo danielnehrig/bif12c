@@ -4,6 +4,7 @@
 
 char operation() {
   char operand;
+  printf("Gebe eine operand ein: ");
   scanf("%c", &operand);
   return operand;
 }
