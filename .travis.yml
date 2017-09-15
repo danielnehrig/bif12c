@@ -3,7 +3,8 @@ os:
   - linux
 sudo: false
 script:
-  - "gcc -coverage -fprofile-arcs calc.c -o calc"
+  - "gcc -coverage calc.c -o calc"
+  - "./calc < testing.txt"
   - "gcov calc.c"
 after_success:
   - bash <(curl -s https://codecov.io/bash)
