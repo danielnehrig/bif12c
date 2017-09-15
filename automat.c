@@ -15,13 +15,13 @@ int main() {
   printf("Getraenke Automat v0.4\n\n");
 
   int amount, bottle;
-  float wrap, price, paid;
+  float wrap, price;
 
   bottle = selectionbottle();
   price = getPrice(bottle);
   amount = insertAmount();
   wrap = price * amount;
-  paid = pay(wrap);
+  pay(wrap);
   givebottle(bottle, amount);
   printf("\n\nVielen Dank, bitte entnehmen sie ihre Getraenke.\n");
 
