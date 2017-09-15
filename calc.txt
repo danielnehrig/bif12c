@@ -1,0 +1,6 @@
+Aufgabe 1:
+Erstelle eine Taschenrechner der zwei Zahlen addiert/multipliziert/subtrahiert/dividiert.
+Aufgabe 2:
+Schreibe das Programm so um das die Mathe Operation unendlich verlängert kann.
+Aufgabe 3:
+Füge Punkt for Strich Rechnung hinzu.
