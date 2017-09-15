@@ -1,0 +1,4 @@
+script:
+  -  "gcc -c -Wall *.c"
+
+language: c

@@ -6,7 +6,7 @@ void printField(int *field);
 void move(int *field, int *posX, int *posY, char zug);
 
 int main() {
-  int field[8][8] = { 0 }, posX=0, posY=0;
+  int field[8][8] = { }, posX=0, posY=0;
   char zug;
 
   // Init Chess Field with default position
