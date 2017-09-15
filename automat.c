@@ -25,7 +25,7 @@ int main() {
   givebottle(bottle, amount);
   printf("\n\nVielen Dank, bitte entnehmen sie ihre Getraenke.\n");
 
-  return 0;
+  return 1;
 }
 // Order Selection
 int selectionbottle() {
@@ -48,7 +48,7 @@ int insertAmount() {
 // Get Price
 float getPrice(int bottle) {
   float price=0;
-  float water=0,limo=0,beer=0;
+  float water=0.5,limo=1,beer=2.5;
   switch(bottle) {
     case 1: price = water; break;
     case 2: price = limo; break;
