@@ -1,0 +1,4 @@
+install:
+  apt-get install gcc
+script:
+  gcc -c -Wall calc.c
