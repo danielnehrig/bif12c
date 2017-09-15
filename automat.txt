@@ -1,0 +1,36 @@
+Aufgabe 1:
+Erstelle einen Automaten bei dem man 3 Produkte kaufen kann.
+Desweitern wie viel man von einem Produkt kaufen will.
+Dann sollen die Werte Multipliziert werden Produkt * Anzahl und ausgeben werden.
+
+Beispeil :
+
+Automat v1
+
+1) Wasser (1 Euro)
+2) Limo (1,50 Euro)
+3) Bier (2 Euro)
+
+Wählen sie ein Produkt: (1, 2 oder 3)
+
+Geben sie die Menge ein: 
+
+Die zu bezahlende Menge ist: 
+
+Aufgabe 2:
+Erweitern sie das Programm durch eine Funktion die die zu Bezahleden Menge abzieht durch
+Geld einwerfen
+
+Beispiel :
+
+Die zu bezahlende Menge ist: 4 Euro
+
+Bitte werfen sie Geld ein: 2
+
+Die zu bezahlende Menge ist: 2 Euro
+
+...
+
+Aufgabe 3:
+Erweitern sie das Programm um eine Funktion die das eingeworfene Geld überprüft.
+Es soll geprüft werden ob eine valides geldstück eingeworfen wurden ist (5cent 10cent 20cent ... bis 2euro)

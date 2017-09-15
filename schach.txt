@@ -1,0 +1,2 @@
+Aufgabe 1:
+Erstellen sie ein Schach ähnliches Spiel
