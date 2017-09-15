@@ -4,7 +4,7 @@ os:
 sudo: false
 script:
   - "clang -coverage -c -Wall *.c"
-  - "gcov *"
+  - "gcov *.c"
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 addons:
