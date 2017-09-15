@@ -1,4 +1,4 @@
 script:
-  -  "gcc -c -Wall calc.c"
+  -  "gcc -c -Wall *.c"
 
 language: c
