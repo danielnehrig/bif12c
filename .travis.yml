@@ -1,4 +1,10 @@
+os:
+  - linux
+  - osx
+sudo: false
 script:
   -  "gcc -c -Wall *.c"
 
 language: c
+after_success:
+  - codecov

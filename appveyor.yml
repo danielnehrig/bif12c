@@ -1,5 +1,0 @@
-version: '{build}'
-image: Visual Studio 2017
-install:
-  - "apt-get gcc"
-  - "gcc -c -Wall *.c"
