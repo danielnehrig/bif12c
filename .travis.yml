@@ -3,8 +3,9 @@ os:
   - linux
 sudo: false
 script:
-  - "gcc -coverage -fprofile-arcs -c -Wall *.c"
-  - "gcov calc.gcno"
+  - "gcc -coverage -fprofile-arcs -c -Wall calc.c -o calc"
+  - "./calc.o"
+  - "gcov calc.c"
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 addons:
