@@ -3,7 +3,7 @@ os:
   - linux
 sudo: false
 script:
-  - "gcc -coverage -fprofile-arcs -c -Wall calc.c -o calc"
+  - "gcc -coverage -fprofile-arcs calc.c -o calc"
   - "./calc"
   - "gcov calc.c"
 after_success:
