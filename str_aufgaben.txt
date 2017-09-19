@@ -1,0 +1,47 @@
+Strings (Zeichenketten)
+
+Übungen zu Strings in C
+
+Teil 1 - String To Lower
+
+Schreibe eine Funktion, welche ein Zeiger auf einen String (char Array) übergeben werden kann. Die Funktion soll alle Großbuchstaben in Kleinbuchstaben umwandeln. Implementiert werden soll die Funktion in einer for Schleife mit lediglich einem if. Ein Blick auf die ASCII-Tabelle ist auch hilfreich. Der Rückgabewert ist der Zeiger auf den bearbeiteten String. Dieser muss im Hauptprogramm aber nicht abgefangen werden, da die Funktion den String direkt über Zeiger verändert. Verwende diesen Funktions-Prototyp:
+
+ 
+char * stringToLower(char *string);
+
+Lösungsvorschlag zu Teil 1 - String To Lower
+
+Teil 2 - String Compare Differences
+
+Schreibe eine Funktion, die zwei Strings miteinander vergleicht. Unterscheiden sich im zweiten String Zeichen an der gleichen Position im ersten String, werden diese in einem Ergebnis-String gespeichert. Das Problem ist mit einer Schleife und einer if Anweisung lösbar. Rückgabewert ist der Zeiger auf den Ergebnis String, also Parameter result. Sind die Strings identisch, wird ein Leer-String zurückgegeben. Der Funktions-Prototyp und Beispiel-Ausgabe:
+
+ 
+char * stringCompareDif(char *string1, char *string2, char *result);
+
+ String 1:       Die schoenen Dinge im Leben sind umsonst.
+String 2:       die Schoenen dinge Im leben Sind Umsonst.
+Unterschiede:   dSdIlSU
+Lösungsvorschlag zu Teil 2 - String Compare Differences
+
+Teil 3 - String Remove Chars
+
+Schreibe eine Funktion, die in einem String bestimmte Zeichen entfernt, sprich durch Leerzeichen ersetzt. Der erste Parameter der Funktion ist der zu bearbeitende String. Der zweite Parameter enthält die zu entfernenden Zeichen. Dies ist mit strpbrk und mit einer Schleife zu lösen. Um ein besseres Verständnis für die Arbeitsweise dieser Hilfsfunktionen zu erhalten, kann diese Aufgabe auch von Hand ohne strpbrk umgesetzt werden.
+
+ 
+char * stringRemoveChars(char *string, char *spanset);
+
+In dieser Beispiel-Ausgabe wurde die zu entwickelnde Funktion verwendet, um Zahlen in einem String zu entfernen.
+
+ vorher:         8Die1schoenen4Dinge6im3Leben9sind0umsonst.5
+nachher:         Die schoenen Dinge im Leben sind umsonst.
+Lösungsvorschlag zu Teil 3 - String Remove Chars
+
+Teil 4 - String Replace
+
+Es soll eine Funktion geschrieben werden, welche in einem String einen String ersetzt. Der gesuchte String und  der Ersetzungs-String können hierbei eine unterschiedliche Länge haben. Dafür wäre die Verwendung der dynamischen Speicherverwaltung hilfreich.
+
+ 
+char * stringReplace(char *search, char *replace, char *string);
+
+ vorher:         Die schoenen Sachen im Leben sind umsonst.
+nachher:        Die schoenen Dinge im Leben sind umsonst.
