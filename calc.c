@@ -2,33 +2,39 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+// Get Operator to do Calc
 char operation() {
   char operand;
-  printf("Gebe eine operand ein: ");
+  printf("Enter a Operator (*;+;-;/) : ");
   scanf("%c", &operand);
   return operand;
 }
-float eingabeZahl() {
-  float eingabe;
-  printf("\nEingabe Zahl: ");
-  scanf("%f", &eingabe);
-  return eingabe;
+// Function to enter a Number
+float enterNumber() {
+  float enter;
+  printf("\nEnter Number: ");
+  scanf("%f", &enter);
+  return enter;
 }
-float multipliziere(char operand, float zahl1, float zahl2) {
+// Do the math
+float multiply(char operand, float number1, float number2) {
   float math;
+  // Check wich Operator was chosen
   switch(operand) {
-    case '*': math = zahl1 * zahl2; break;
-    case '+': math = zahl1 + zahl2; break;
-    case '/': math = zahl1 / zahl2; break;
-    case '-': math = zahl1 - zahl2; break;
+    case '*': math = number1 * number2; break;
+    case '+': math = number1 + number2; break;
+    case '/': math = number1 / number2; break;
+    case '-': math = number1 - number2; break;
   }
   return math;
 }
-void ausgabeErgebnis(float ergebnis) {
-  printf("\nErgebnis: %f\n", ergebnis);
+// Return the result
+void returnValue(float result) {
+  printf("\nErgebnis: %f\n", result);
 }
 
+// Main exec
 int main() {
-  ausgabeErgebnis(multipliziere(operation(), eingabeZahl(), eingabeZahl()));
+  returnValue(multiply(operation(), enterNumber(), enterNumber()));
   return 0;
 }
