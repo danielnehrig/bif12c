@@ -18,7 +18,7 @@ float enterNumber() {
   return enter;
 }
 // Do the first math
-float multiply(char operand, float number1, float number2) {
+float multiply(float number1, char operand, float number2) {
   float math;
   // Check wich Operator was chosen
   switch(operand) {
@@ -26,8 +26,7 @@ float multiply(char operand, float number1, float number2) {
     case '+': math = number1 + number2; break;
     case '/': math = number1 / number2; break;
     case '-': math = number1 - number2; break;
-  }
-  return math;
+  } return math;
 }
 // Do more math
 float mplus(float math) {
@@ -60,7 +59,7 @@ void returnValue(float result) {
 int main() {
   float init, end;
   printf("Calculator v0.4\n");
-  init = multiply(operation(), enterNumber(), enterNumber());
+  init = multiply(enterNumber(), operation(), enterNumber());
   end = mplus(init);
   returnValue(end);
   return 0;
