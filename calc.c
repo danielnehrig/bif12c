@@ -3,10 +3,10 @@
 #include <stdio.h>
 #include <string.h>
 
-// Get Operator to do Calc
+// Get Operator to do Calculation
 char operation() {
   char operand;
-  printf("\nEnter a Operator (*;+;-;/) : ");
+  printf("\nEnter a Operator (*;+;-;/;=) : ");
   scanf(" %c", &operand);
   return operand;
 }
@@ -17,7 +17,7 @@ float enterNumber() {
   scanf("%f", &enter);
   return enter;
 }
-// Do the math
+// Do the first math
 float multiply(char operand, float number1, float number2) {
   float math;
   // Check wich Operator was chosen
@@ -36,6 +36,7 @@ float mplus(float math) {
   // Loop Through until the operand is = and give result
   do {
     operand = operation();
+    // Check if Operation is = allready and spit Out result
     if(operand == '=') {
       return math;
     } else {
@@ -58,6 +59,7 @@ void returnValue(float result) {
 // Main exec
 int main() {
   float init, end;
+  printf("Calculator v0.4\n");
   init = multiply(operation(), enterNumber(), enterNumber());
   end = mplus(init);
   returnValue(end);
