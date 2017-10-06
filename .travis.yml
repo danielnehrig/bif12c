@@ -4,7 +4,10 @@ os:
 sudo: false
 script:
   - "gcc -coverage calc.c -o calc"
-  - "./calc < testing.txt"
+  - "./calc < calc_test.txt"
   - "gcov calc.c"
+  - "gcc -coverage auswahl.c -o auswahl"
+  - "./auswahl < auswahl_test.txt"
+  - "gcov auswahl.c"
 after_success:
   - bash <(curl -s https://codecov.io/bash)
