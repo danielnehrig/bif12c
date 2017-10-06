@@ -54,7 +54,7 @@ int main() {
         case 'a' : hallo(); break;
         case 'b' : Calc(); break;
         case 'c' : prime(); break;
-        case 'x' : break;
+        case 'x' : return 0; break;
         default : printf("\n\nNo Input Try Again"); break;
     }
     printf("\n\nRun Another Program? : ");
@@ -63,7 +63,6 @@ int main() {
     if(strcmp(&answer, "yes") == 0) {
         main();
     }else if(strcmp(&answer, "no") == 0) {
-        printf("Exiting");
         return 0;
     } else {
         printf("Input yes or no");
