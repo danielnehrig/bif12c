@@ -7,7 +7,5 @@ script:
   - "./calc < calc_test.txt"
   - "gcov calc.c"
   - "gcc -std=c99 -coverage auswahl.c -o auswahl"
- // - "./auswahl < auswahl_test.txt"
- // - "gcov auswahl.c"
 after_success:
   - bash <(curl -s https://codecov.io/bash)
