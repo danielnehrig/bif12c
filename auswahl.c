@@ -49,11 +49,40 @@ void prime() {
     printf("\n");
 }
 
+void fibonacci() {
+    clrscr();
+    int input;
+    unsigned long long first,second,math;
+    first = 0;
+    second = 1;
+    printf("\nThis is the Fibonacci Program");
+    printf("\nEnter Amount to Count up too : ");
+    scanf("%i", &input);
+    printf("\n");
+    for(int i=0;i<input;i++) {
+        if ( input == 0 ) {
+            math = 0;
+            break;
+        }
+        else if ( input == 1 ) {
+            math = 1;
+            break;
+        }
+        else {
+            math = first + second;
+            first = second;
+            second = math;
+        }
+    printf("%llu ", math);
+    }
+}
+
 int main() {
     char programm,answer;
     printf("a = Print 5x Hello\n");
     printf("b = Calc 1...n\n");
     printf("c = Prime Numbers ... n\n");
+    printf("d = fibonacci Numbers ... n\n");
     printf("x = To Cancel\n");
     printf("\nChoose Which Programm To Start : ");
     scanf(" %c", &programm);
@@ -63,6 +92,7 @@ int main() {
         case 'a' : hallo(); break;
         case 'b' : Calc(); break;
         case 'c' : prime(); break;
+        case 'd' : fibonacci(); break;
         case 'x' : return 0; break;
         default : printf("\n\nNo Input Try Again"); break;
     }

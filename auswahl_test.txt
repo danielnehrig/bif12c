@@ -6,4 +6,7 @@ b
 yes
 c
 30
+yes
+d
+100
 no
