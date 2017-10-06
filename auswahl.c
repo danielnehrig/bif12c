@@ -1,8 +1,15 @@
 #include <stdio.h>
 #include <string.h>
+#ifdef _WIN32
+#include <conio.h>
+#else
+#include <stdio.h>
+#define clrscr() printf("\e[1;1H\e[2J");
+#endif
 
 // A Program Print Hello x times
 void hallo() {
+    clrscr();
     int input;
     printf("\nHello Program");
     printf("\nEnter Amount to print Hello : ");
@@ -14,6 +21,7 @@ void hallo() {
 }
 // B Program Calculate x+=i
 void Calc() {
+    clrscr();
     int input;
     int math=0;
     printf("\nThis is the Counting Program 1+2+3+5+8");
@@ -27,6 +35,7 @@ void Calc() {
 
 // C Program Output Every Prime Number Up to N
 void prime() {
+    clrscr();
     int input,math;
     printf("\nThis is the Prime Program");
     printf("\nEnter Amount to Count up too : ");
@@ -61,6 +70,7 @@ int main() {
     scanf("%s", &answer);
     printf("\n\n");
     if(strcmp(&answer, "yes") == 0) {
+        clrscr();
         main();
     }else if(strcmp(&answer, "no") == 0) {
         return 0;
