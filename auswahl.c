@@ -64,6 +64,7 @@ int main() {
         main();
     }else if(strcmp(&answer, "no") == 0) {
         printf("Exiting");
+        return 0;
     } else {
         printf("Input yes or no");
     }
