@@ -6,7 +6,7 @@ script:
   - "gcc -coverage calc.c -o calc"
   - "./calc < calc_test.txt"
   - "gcov calc.c"
-  - "gcc -coverage auswahl.c -o auswahl"
+  - "gcc -std=c99 -coverage auswahl.c -o auswahl"
   - "./auswahl < auswahl_test.txt"
   - "gcov auswahl.c"
 after_success:
