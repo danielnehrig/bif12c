@@ -60,13 +60,19 @@ void fullc() {
     math = 0;
     printf("\nThis is the Full Calculator Program");
     do {
+        char push;
         printf("\nEnter Number : ");
         scanf(" %f", &input[i]);
         if(!math) {
             math = input[0];
         }
         printf("\nEnter Operation : ");
-        scanf(" %c", &operation[i]);
+        scanf(" %c", &push);
+        if(push != '=') {
+            operation[i] = push;
+        } else {
+            break;
+        }
         i++;
     } while (operation[i-1] != '=');
     arrlen = i;
@@ -88,13 +94,15 @@ void fullc() {
                 case '-' : dash -= input[k+1]; break;
                 default: break;
             }
-        }
-        if(operation[k] == '*' || operation[k] == '/') {
+        } else if(operation[k] == '*' || operation[k] == '/') {
             switch (operation[k]) {
                 case '*' : math *= input[k+1]; break;
                 case '/' : math /= input[k+1]; break;
                 default  : break;
             }
+        } else {
+            // throw exception
+            printf("\nOut of Range at char %c on index %i", operation[k], k);
         }
     }
     math += dash;
