@@ -57,6 +57,7 @@ void fullc() {
     float input[255];
     float dash,math;
     dash = 0;
+    math = 0;
     printf("\nThis is the Full Calculator Program");
     do {
         printf("\nEnter Number : ");
@@ -72,7 +73,16 @@ void fullc() {
     printf("\nIs Math init? = %f", math);
     printf("\nArray Length : %d", arrlen);
     for(int k = 0;k<arrlen;k++) {
-        if((operation[k] == '+' && (operation[k+1] != '*' || operation[k+1] != '/')) || (operation[k] == '+' && (operation[k+1] == '+' || operation[k+1] == '-')) || (operation[k] == '-' && (operation[k+1] == '-' || operation[k+1] == '+'))) {
+        if(
+              (operation[k] == '+' && 
+                (operation[k+1] != '*' || operation[k+1] != '/')) || 
+              (operation[k] == '+' && 
+                (operation[k+1] == '+' || operation[k+1] == '-')) || 
+              (operation[k] == '-' && 
+                (operation[k+1] != '*' || operation[k+1] != '/')) ||
+              (operation[k] == '-' && 
+                (operation[k+1] == '-' || operation[k+1] == '+'))) 
+        {
             switch (operation[k]) {
                 case '+' : dash += input[k+1]; break;
                 case '-' : dash -= input[k+1]; break;
@@ -88,7 +98,6 @@ void fullc() {
         }
     }
     math += dash;
-
     printf("\nResult is %f", math);
 }
 
