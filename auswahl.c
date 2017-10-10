@@ -49,6 +49,49 @@ void prime() {
     printf("\n");
 }
 
+void fullc() {
+    clrscr();
+    int i = 0;
+    int arrlen;
+    char operation[255];
+    float input[255];
+    float dash,math;
+    dash = 0;
+    printf("\nThis is the Full Calculator Program");
+    do {
+        printf("\nEnter Number : ");
+        scanf(" %f", &input[i]);
+        if(!math) {
+            math = input[0];
+        }
+        printf("\nEnter Operation : ");
+        scanf(" %c", &operation[i]);
+        i++;
+    } while (operation[i-1] != '=');
+    arrlen = i;
+    printf("\nIs Math init? = %f", math);
+    printf("\nArray Length : %d", arrlen);
+    for(int k = 0;k<arrlen;k++) {
+        if((operation[k] == '+' && (operation[k+1] != '*' || operation[k+1] != '/')) || (operation[k] == '+' && (operation[k+1] == '+' || operation[k+1] == '-')) || (operation[k] == '-' && (operation[k+1] == '-' || operation[k+1] == '+'))) {
+            switch (operation[k]) {
+                case '+' : dash += input[k+1]; break;
+                case '-' : dash -= input[k+1]; break;
+                default: break;
+            }
+        }
+        if(operation[k] == '*' || operation[k] == '/') {
+            switch (operation[k]) {
+                case '*' : math *= input[k+1]; break;
+                case '/' : math /= input[k+1]; break;
+                default  : break;
+            }
+        }
+    }
+    math += dash;
+
+    printf("\nResult is %f", math);
+}
+
 void fibonacci() {
     clrscr();
     int input;
@@ -83,6 +126,7 @@ int main() {
     printf("b = Calc 1...n\n");
     printf("c = Prime Numbers ... n\n");
     printf("d = fibonacci Numbers ... n\n");
+    printf("e = Full Calculator ... n\n");
     printf("x = To Cancel\n");
     printf("\nChoose Which Programm To Start : ");
     scanf(" %c", &programm);
@@ -93,6 +137,7 @@ int main() {
         case 'b' : Calc(); break;
         case 'c' : prime(); break;
         case 'd' : fibonacci(); break;
+        case 'e' : fullc(); break;
         case 'x' : return 0; break;
         default : printf("\n\nNo Input Try Again"); break;
     }
