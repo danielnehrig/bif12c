@@ -36,15 +36,21 @@ void Calc() {
 // C Program Output Every Prime Number Up to N
 void prime() {
     clrscr();
-    int input,math;
+    int input,k,j=3;
     printf("\nThis is the Prime Program");
     printf("\nEnter Amount to Count up too : ");
     scanf("%i", &input);
     printf("\n");
-    for(int i=0;i<input;i++) {
-        int j=1;
-        math = i + (i + j);
-        printf("%i ", math);
+    for(int i=2;i<=input; ) {
+        for(k=2;k<=j-1;k++) {
+            if(j%k == 0)
+                break;
+        }
+        if ( k == j ) {
+            printf("%i ", j);
+            i++;
+        }
+        j++;
     }
     printf("\n");
 }
@@ -59,6 +65,7 @@ void fullc() {
     dash = 0;
     math = 0;
     printf("\nThis is the Full Calculator Program");
+    // Method 2
     do {
         char push;
         printf("\nEnter Number : ");
@@ -79,15 +86,17 @@ void fullc() {
     printf("\nIs Math init? = %f", math);
     printf("\nArray Length : %d", arrlen);
     for(int k = 0;k<arrlen;k++) {
+        // Check if the next operator is valid to to calculate
         if(
-              (operation[k] == '+' && 
-                (operation[k+1] != '*' || operation[k+1] != '/')) || 
-              (operation[k] == '+' && 
-                (operation[k+1] == '+' || operation[k+1] == '-')) || 
-              (operation[k] == '-' && 
-                (operation[k+1] != '*' || operation[k+1] != '/')) ||
-              (operation[k] == '-' && 
-                (operation[k+1] == '-' || operation[k+1] == '+'))) 
+                // Method 1
+                (operation[k] == '+' && 
+                 (operation[k+1] != '*' || operation[k+1] != '/')) || 
+                (operation[k] == '+' && 
+                 (operation[k+1] == '+' || operation[k+1] == '-')) || 
+                (operation[k] == '-' && 
+                 (operation[k+1] != '*' || operation[k+1] != '/')) ||
+                (operation[k] == '-' && 
+                 (operation[k+1] == '-' || operation[k+1] == '+'))) 
         {
             switch (operation[k]) {
                 case '+' : dash += input[k+1]; break;
@@ -103,10 +112,17 @@ void fullc() {
         } else {
             // throw exception
             printf("\nOut of Range at char %c on index %i", operation[k], k);
+            fullc();
         }
     }
     math += dash;
     printf("\nResult is %f", math);
+    printf("\nRestart Caluclation? (yes,no) : ");
+    char restart;
+    scanf("%s", &restart);
+    if(strcmp(&restart,"yes") == 0) {
+        fullc();
+    }
 }
 
 void fibonacci() {
