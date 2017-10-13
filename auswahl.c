@@ -43,8 +43,9 @@ void prime() {
     printf("\n");
     for(int i=2;i<=input; ) {
         for(k=2;k<=j-1;k++) {
-            if(j%k == 0)
+            if(j%k == 0) {
                 break;
+            }
         }
         if ( k == j ) {
             printf("%i ", j);

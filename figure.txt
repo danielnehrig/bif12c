@@ -1,0 +1,23 @@
+Buecherregal
+
+Laura hat ein langes Regalbrett an ihrer Wand. Sie moechte es huebscher einraumen. Ausser
+ihren Buechern sollen auf dem Regal auch vier Deko-Figuren stehen. Sie ueberlegt sich, dass sie
+das Regal mit den Figuren in fuenf Abschnitte unterteilen kann. Diese Abschnitte moechte sie
+mit ihren Buechern fuellen. Wie breit die Abschnitte sind, ist ihr egal. Sie moechte aber, dass die
+Buecher im selben Abschnitt alle ungefaehr gleich hoch sind. Dazu moechte sie sicherstellen,
+dass der Hoehenunterschied zwischen dem groessten und dem kleisten Buch im selben
+Abschnitt hoechstens 3 cm ist. Ob die Buecher in einem Abschnitt inhaltlich zusammenpassen,
+spielt fuer Laura keine Rolle. Nach dem Umraeumen darf kein Buch uebrig bleiben.
+
+Junioraufgabe 1
+
+Schreibe ein Programm, das berechnet, ob eine Aufstellung der Buecher und Figuren nach
+Lauras Wuenschen moeglich ist. Dein Programm soll auch fuer groessere Anzahlen von Deko-
+Figuren funktionieren. Dazu bekommt es als Eingabe die Anzahl die Angabe der Figuren, die Anzahl der
+Buecher und fuer jedes Buch dessen Hoehe (in cm). Du kannst davon ausgehen, dass alle Buecher
+und die Figuren zusammen auf das Regal passen.
+
+Gib zunaechst aus, ob eine Aufstellung moeglich ist. Wenn ja, gib fuer jeden Abschnitt die Hoehen 
+der Buecher aus.
+
+Wende dein Programm auf die Beispiele an, die du auf den BwInf-Webseiten findest.
