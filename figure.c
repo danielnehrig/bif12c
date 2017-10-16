@@ -2,26 +2,38 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+#include <stdbool.h>
+#include <unistd.h>
+#include <sys/time.h>
+#include <sys/types.h>
 #ifdef _WIN32
 #include <conio.h>
 #else
 #define clrscr() printf("\e[1;1H\e[2J");
 #endif
 #define DEBUG
+bool possible(int,int);
+int error(int);
 
 int main() {
+    clrscr();
     int figure,books,max=3,heights[255];
-    int a,i,j,k=0;
+    int a,i,j,k=0,o=1;
     // Input
     printf("\nBooks on Shelf Programm\n\n");
     printf("\nAmount of Figures : ");
     scanf("%d", &figure);
     printf("\nAmount of Books : ");
     scanf("%d", &books);
-
-    if(figure > books) {
-        printf("\nUnable to Order Books becouse we are short on books");
+    if(!possible(figure,books)) {
+        printf("\nUnable to Continue Book amount is lees then figure amount");
+        error(1);
     }
+    if(books%figure != 0 ) {
+        printf("\nUneven amount of Books to Space between Figures");
+        error(2);
+    }
+
 
     for(i=0;i<books;i++) {
         int height;
@@ -51,10 +63,33 @@ int main() {
     for(i=1;i<figure+1;i++) {
         printf("\n\nAbschnit %d", i);
         printf("\n-----------");
-        for(j=1;j<=books;j++) {
-            printf("\nBook %d Hight : %d", j, heights[j-1]);
+        for(j=1;j<=books/figure;j++) {
+            printf("\nBook %d Hight : %d", o, heights[o-1]);
+            o++;
         }
     }
 
+    return 0;
+}
+
+bool possible(int n, int i) {
+    if(n < i)
+        return true;
+
+    return false;
+}
+
+int error(int n) {
+    char yes;
+    if ( n == 2 ) {
+        printf("\nWant to restart the Program ? : ");
+        scanf("%s", &yes);
+        if (strcmp(&yes,"yes") == 0) {
+            main();
+        } else {
+            return 2;
+        }
+        return 10;
+    }
     return 0;
 }
