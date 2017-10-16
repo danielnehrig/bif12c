@@ -11,7 +11,7 @@
 #else
 #define clrscr() printf("\e[1;1H\e[2J");
 #endif
-#define DEBUG
+//#define DEBUG
 bool possible(int,int);
 int error(int);
 
@@ -25,7 +25,7 @@ int main() {
     scanf("%d", &figure);
     printf("\nAmount of Books : ");
     scanf("%d", &books);
-    if(!possible(figure,books)) {
+    if(books<figure) {
         printf("\nUnable to Continue Book amount is lees then figure amount");
         error(1);
     }
@@ -52,6 +52,14 @@ int main() {
             }
         }
     }
+    // Make sure Every Section has a height range of 3cm
+    for(i=0;i<books-1;i++) {
+        for(j=0;j<books/(figure+1);j++) {
+            if(heights[i] > heights[j]%(max+1-0)+0) {
+                // do logic :)
+            }
+        }
+    }
 
 #ifdef DEBUG
     for(int k=0;k<books;k++) {
@@ -60,23 +68,19 @@ int main() {
 #endif
 
     // Output
-    for(i=1;i<figure+1;i++) {
+    o = 0;
+    clrscr();
+    for(i=1;i<=figure+1;i++) {
         printf("\n\nAbschnit %d", i);
         printf("\n-----------");
-        for(j=1;j<=books/figure;j++) {
-            printf("\nBook %d Hight : %d", o, heights[o-1]);
+        for(j=1;j<=books/(figure+1);j++) {
+            printf("\nBook Nr. %d\t Book Nr in Category.  %d\t Height : %d", o+1, j, heights[o]);
             o++;
         }
     }
+    printf("\n");
 
     return 0;
-}
-
-bool possible(int n, int i) {
-    if(n < i)
-        return true;
-
-    return false;
 }
 
 int error(int n) {
