@@ -1,23 +1,21 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <math.h>
-#include <stdbool.h>
-#include <unistd.h>
-#include <sys/time.h>
-#include <sys/types.h>
 #ifdef _WIN32
 #include <conio.h>
 #else
 #define clrscr() printf("\e[1;1H\e[2J");
 #endif
 //#define DEBUG
+
+// Prototypes
 void errorH(int);
 void input(int *figure,int *books,int *heights);
 void sortAsc(int arrlen,int *arr);
 void cmrule(int arrlen,int *arr);
 void output(int,int,int *arr);
 
+// Main Exec
 int main() {
     int figure,books,heights[255];
     int i;
@@ -28,6 +26,8 @@ int main() {
     return 0;
 }
 
+
+// Error handling Exit codes
 void errorH(int n) {
     char yes;
     if ( n == 2 ) {
@@ -43,6 +43,7 @@ void errorH(int n) {
     exit(-10);
 }
 
+// Sort a Array asc
 void sortAsc(int arrlen, int *arr) {
     int i,j,a;
     for(i=0;i<arrlen-1;i++) {
@@ -56,6 +57,7 @@ void sortAsc(int arrlen, int *arr) {
     }
 }
 
+// apply 3cm rule to books in category
 void cmrule(int arrlen,int *arr) {
     int i,max=3;
     char answer;
@@ -75,6 +77,7 @@ void cmrule(int arrlen,int *arr) {
     }
 }
 
+// Output Of the categorys and the given books for the category
 void output(int figure,int arrlen, int *arr) {
     clrscr();
     int i,j,o = 0;
@@ -89,6 +92,7 @@ void output(int figure,int arrlen, int *arr) {
     printf("\n");
 }
 
+// User Input and Validation
 void input(int *figure,int *books, int *heights) {
     int i;
     printf("\nBooks on Shelf Programm\n\n");
