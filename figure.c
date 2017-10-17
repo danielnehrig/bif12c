@@ -11,8 +11,7 @@
 #else
 #define clrscr() printf("\e[1;1H\e[2J");
 #endif
-//#define DEBUG
-bool possible(int,int);
+#define DEBUG
 int error(int);
 
 int main() {
@@ -25,11 +24,11 @@ int main() {
     scanf("%d", &figure);
     printf("\nAmount of Books : ");
     scanf("%d", &books);
-    if(books<figure) {
+    if(books%( figure+1 ) != 0 && books<figure+1) {
+        printf("\nUneven amount of Books to Space between Figures");
         printf("\nUnable to Continue Book amount is lees then figure amount");
-        error(1);
-    }
-    if(books%figure != 0 ) {
+        error(2);
+    } else if (books%(figure+1) != 0) {
         printf("\nUneven amount of Books to Space between Figures");
         error(2);
     }
@@ -52,24 +51,26 @@ int main() {
             }
         }
     }
+
     // Make sure Every Section has a height range of 3cm
-    for(i=0;i<books-1;i++) {
-        for(j=0;j<books/(figure+1);j++) {
-            if(heights[i] > heights[j]%(max+1-0)+0) {
-                // do logic :)
+    for(i=0;i<books;i++) {
+        if((heights[i+1] - heights[i]) > max){
+            char answer;
+            printf("\nBook %d with hight %d is bigger then Book %d with height %d, hight difference is %d and max is %d",i+1,heights[i+1],i,heights[i], heights[i+1]-heights[i], max);
+            printf("\nWant to Insert a different book ? : ");
+            scanf("%s", &answer);
+            if(strcmp(&answer, "yes") == 0) {
+                printf("Input new book height : ");
+                scanf("%d", &heights[i+1]);
+            } else {
+                return 0;
             }
         }
     }
 
-#ifdef DEBUG
-    for(int k=0;k<books;k++) {
-        printf("\n\nDEBUG Sorted : %d ", heights[k]);
-    }
-#endif
-
     // Output
     o = 0;
-    clrscr();
+    //clrscr();
     for(i=1;i<=figure+1;i++) {
         printf("\n\nAbschnit %d", i);
         printf("\n-----------");
