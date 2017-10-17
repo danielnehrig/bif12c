@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 #ifdef _WIN32
 #include <conio.h>
 #else
@@ -16,14 +17,24 @@ void cmrule(int arrlen,int *arr);
 void output(int,int,int *arr);
 
 // Main Exec
-int main() {
+int main(int argc, char *argv[]) {
     int figure,books,heights[255];
     int i;
-    input(&figure,&books,heights);
+    if(strcmp(argv[1],"rand") != 0) {
+        input(&figure,&books,heights);
+    } else if(strcmp(argv[1],"rand") == 0) {
+        srand(time(NULL));
+        int maxf=5,maxb=14,min=1;
+        figure = rand()%(maxf+1-min)+min;
+        books = rand()%(maxb+1-min)+min;
+        for(i=0;i<=books;i++) {
+            heights[i] = rand()%(maxb+1-min)+min;
+        }
+    }
     sortAsc(books,heights);
     cmrule(books,heights);
     output(figure,books,heights);
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 
@@ -35,7 +46,7 @@ void errorH(int n) {
         scanf("%s", &yes);
         if (strcmp(&yes,"yes") == 0) {
             clrscr();
-            main();
+            main(0,0);
         } else {
             exit(-2);
         }
