@@ -13,11 +13,11 @@
 void errorH(int);
 void input(int *figure,int *books,int *heights);
 void sortAsc(int arrlen,int *arr);
-void cmrule(int arrlen,int *arr);
+void cmrule(int arrlen,int *arr,char **argv);
 void output(int,int,int *arr);
 
 // Main Exec
-int main(int argc, char *argv[]) {
+int main(int argc,char *argv[]) {
     int figure,books,heights[255];
     int i;
     if(strcmp(argv[1],"rand") != 0) {
@@ -26,13 +26,13 @@ int main(int argc, char *argv[]) {
         srand(time(NULL));
         int maxf=5,maxb=14,min=1;
         figure = rand()%(maxf+1-min)+min;
-        books = rand()%(maxb+1-min)+min;
+        books = rand()%(maxb+1-figure)+figure;
         for(i=0;i<=books;i++) {
             heights[i] = rand()%(maxb+1-min)+min;
         }
     }
     sortAsc(books,heights);
-    cmrule(books,heights);
+    cmrule(books,heights,argv);
     output(figure,books,heights);
     return EXIT_SUCCESS;
 }
@@ -69,21 +69,25 @@ void sortAsc(int arrlen, int *arr) {
 }
 
 // apply 3cm rule to books in category
-void cmrule(int arrlen,int *arr) {
+void cmrule(int arrlen,int *arr,char **argv) {
     int i,max=3;
     char answer;
     for(i=0;i<arrlen;i++) {
         if((arr[i+1] - arr[i]) > max){
-            char answer;
-            printf("\nBook %d with hight %d is bigger then Book %d with height %d, hight difference is %d and max is %d",i+1,arr[i+1],i,arr[i], arr[i+1]-arr[i], max);
-            printf("\nWant to Insert a different book ? : ");
-            scanf("%s", &answer);
-            if(strcmp(&answer, "yes") == 0) {
-                printf("Input new book height : ");
-                scanf("%d", &arr[i+1]);
-            } else {
-                exit(-3);
-            }
+            if(strcmp(argv[1],"rand") != 0) {
+                char answer;
+                printf("\nBook %d with hight %d is bigger then Book %d with height %d, hight difference is %d and max is %d",i+1,arr[i+1],i,arr[i], arr[i+1]-arr[i], max);
+                printf("\nWant to Insert a different book ? : ");
+                scanf("%s", &answer);
+                if(strcmp(&answer, "yes") == 0) {
+                    printf("Input new book height : ");
+                    scanf("%d", &arr[i+1]);
+                } else {
+                    exit(-3);
+                }
+           } else {
+               main(1,argv);
+           }
         }
     }
 }
