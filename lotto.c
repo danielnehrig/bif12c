@@ -38,10 +38,10 @@ void print (int *arr,int msg) {
 }
 
 void drawballs (int *lottonumbers) {
-	srand(time(0));
+  srand(time(0));
   printf("\nStarting Drawing the Lotto Balls");
   for(int i=0;i<=5;i++) {
-		lottonumbers[i] = 1 + (rand() % (49 - 1 + 1));
+    lottonumbers[i] = 1 + (rand() % (49 - 1 + 1));
   }
   bubbleSort(6,lottonumbers);
 }
@@ -59,77 +59,77 @@ int compare (int *arr,int *arr2) {
 }
 
 bool numberValidation (int number) {
-	if(number > 49 || number == 0) {
-		return true;
-	} else {
-		return false;
-	}
+  if(number > 49 || number == 0) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 void self () {
-	clrscr();
+  clrscr();
   int lottonumbers[6];
   int numbers[6];
   printf("\nStarting Self");
   for(int i=0;i<=5;i++) {
     printf("\nEnter a Number between 1-49 - %d: ", i+1);
     scanf(" %d", &numbers[i]);
-		if(numberValidation(numbers[i])) {
-			printf("\nNumber rule error limit exceeded retring : ");
-			scanf(" %d", &numbers[i]);
-		}
+    if(numberValidation(numbers[i])) {
+      printf("\nNumber rule error limit exceeded retring : ");
+      scanf(" %d", &numbers[i]);
+    }
   }
   bubbleSort(6,numbers);
   drawballs(lottonumbers);
   print(numbers,2);
   print(lottonumbers,1);
-	int correct = compare(numbers,lottonumbers);
+  int correct = compare(numbers,lottonumbers);
   printf("\n\nYou have %d correct number(s)", correct);
-	if(correct == 6) {
-		printf("\n\nYou Won !!!");
-	}
+  if(correct == 6) {
+    printf("\n\nYou Won !!!");
+  }
 }
 
 void simulation () {
-	clrscr();
-	srand(time(0));
+  clrscr();
+  srand(time(0));
   int players[1000][6];
   int lottonumbers[6];
-	int correctAll = 0;
-	int correct = 0;
+  int correctAll = 0;
+  int correct = 0;
   printf("\nStarting Simulation");
-	for(int i=0;i<=999;i++) {
-		for(int k=0;k<=5;k++) {
-			players[i][k] = 1 + (rand() % (49 - 1 + 1));
-		}
-	}
-	drawballs(lottonumbers);
-	print(lottonumbers,1);
-	for(int i=0;i<=999;i++) {
-		for(int k=0;k<=5;k++) {
-			for(int l=0;l<=5;l++) {
-				if(players[i][k] == lottonumbers[l]) {
-					correct++;
-				}
-			}
-		}
-		if(correct == 6) {
-			printf("\n\nPlayer %d Won !!!", i);
-			for(int o=0;o<=5;o++) {
-				printf(" ; number %d : %d", o+1, players[i][o]);
-			}
-		} else {
-			correctAll += correct;
-			correct = 0;
-		}
-	}
+  for(int i=0;i<=999;i++) {
+    for(int k=0;k<=5;k++) {
+      players[i][k] = 1 + (rand() % (49 - 1 + 1));
+    }
+  }
+  drawballs(lottonumbers);
+  print(lottonumbers,1);
+  for(int i=0;i<=999;i++) {
+    for(int k=0;k<=5;k++) {
+      for(int l=0;l<=5;l++) {
+        if(players[i][k] == lottonumbers[l]) {
+          correct++;
+        }
+      }
+    }
+    if(correct == 6) {
+      printf("\n\nPlayer %d Won !!!", i);
+      for(int o=0;o<=5;o++) {
+        printf(" ; number %d : %d", o+1, players[i][o]);
+      }
+    } else {
+      correctAll += correct;
+      correct = 0;
+    }
+  }
   printf("\n\n%d correct numbers overall", correctAll);
 }
 
 int main() {
   char auswahl;
-	clrscr();
-	printf("\nLotto Game v1");
+  clrscr();
+  printf("\nLotto Game v1");
   printf("\nPlay by yourself (x) start Simulation (s) : ");
   scanf("%c", &auswahl);
   switch (auswahl) {
