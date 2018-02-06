@@ -44,6 +44,13 @@ void drawnumbers (int *lottonumbers) {
   for(int i=0;i<=5;i++) {
     lottonumbers[i] = 1 + (rand() % (49 - 1 + 1));
   }
+  for(int i=0;i<=5;i++) {
+    for(int k=0;k<i;k++) {
+      if(lottonumbers[k] == lottonumbers[i]) {
+        drawnumbers(lottonumbers);
+      }
+    }
+  }
   bubbleSort(6,lottonumbers);
 }
 
@@ -66,7 +73,7 @@ bool numberValidation (int *number,int i) {
   } else if (i >= 1) {
     for(int k=0;k<i;k++) {
       if(number[k] == number[i]) {
-        printf("\nfound same number in list retry");
+        printf("\nFound same number in list retry");
         return true;
       }
     }
