@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdbool.h>
+#include <ctype.h>
 
 #ifdef _WIN32
 #include <conio.h>
@@ -37,9 +38,9 @@ void print (int *arr,int msg) {
   }
 }
 
-void drawballs (int *lottonumbers) {
+void drawnumbers (int *lottonumbers) {
   srand(time(0));
-  printf("\nStarting Drawing the Lotto Balls");
+  printf("\nStarting Drawing the Lotto Numbers");
   for(int i=0;i<=5;i++) {
     lottonumbers[i] = 1 + (rand() % (49 - 1 + 1));
   }
@@ -58,12 +59,19 @@ int compare (int *arr,int *arr2) {
   return correct;
 }
 
-bool numberValidation (int number) {
-  if(number > 49 || number == 0) {
+bool numberValidation (int *number,int i) {
+  if(number[i] > 49 || number[i] == 0) {
+    printf("\nNumber above 49 or 0 retry");
     return true;
-  } else {
-    return false;
+  } else if (i >= 1) {
+    for(int k=0;k<i;k++) {
+      if(number[k] == number[i]) {
+        printf("\nfound same number in list retry");
+        return true;
+      }
+    }
   }
+  return false;
 }
 
 void self () {
@@ -72,15 +80,13 @@ void self () {
   int numbers[6];
   printf("\nStarting Self");
   for(int i=0;i<=5;i++) {
-    printf("\nEnter a Number between 1-49 - %d: ", i+1);
-    scanf(" %d", &numbers[i]);
-    if(numberValidation(numbers[i])) {
-      printf("\nNumber rule error limit exceeded retring : ");
+    do {
+      printf("\nEnter a Number between 1-49 - %d: ", i+1);
       scanf(" %d", &numbers[i]);
-    }
+    } while (numberValidation(numbers,i));
   }
   bubbleSort(6,numbers);
-  drawballs(lottonumbers);
+  drawnumbers(lottonumbers);
   print(numbers,2);
   print(lottonumbers,1);
   int correct = compare(numbers,lottonumbers);
@@ -103,7 +109,7 @@ void simulation () {
       players[i][k] = 1 + (rand() % (49 - 1 + 1));
     }
   }
-  drawballs(lottonumbers);
+  drawnumbers(lottonumbers);
   print(lottonumbers,1);
   for(int i=0;i<=999;i++) {
     for(int k=0;k<=5;k++) {
