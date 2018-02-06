@@ -39,8 +39,6 @@ void print (int *arr,int msg) {
 }
 
 void drawnumbers (int *lottonumbers) {
-  srand(time(0));
-  printf("\nStarting Drawing the Lotto Numbers");
   for(int i=0;i<=5;i++) {
     lottonumbers[i] = 1 + (rand() % (49 - 1 + 1));
   }
@@ -105,7 +103,6 @@ void self () {
 
 void simulation () {
   clrscr();
-  srand(time(0));
   int players[1000][6];
   int lottonumbers[6];
   int correctAll = 0;
@@ -140,6 +137,7 @@ void simulation () {
 }
 
 int main() {
+  srand(time(0));
   char auswahl;
   clrscr();
   printf("\nLotto Game v1");
