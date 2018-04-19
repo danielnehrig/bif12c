@@ -13,7 +13,7 @@
 void errorH(int);
 void input(int *figure,int *books,int *heights);
 void sortAsc(int arrlen,int *arr);
-void cmrule(int arrlen,int *arr,char **argv);
+void cmrule(int sec,int arrlen,int *arr,char **argv);
 void output(int,int,int *arr);
 
 // Main Exec
@@ -32,7 +32,7 @@ int main(int argc,char *argv[]) {
         }
     }
     sortAsc(books,heights);
-    cmrule(books,heights,argv);
+    cmrule(figure,books,heights,argv);
     output(figure,books,heights);
     return EXIT_SUCCESS;
 }
@@ -69,14 +69,15 @@ void sortAsc(int arrlen, int *arr) {
 }
 
 // apply 3cm rule to books in category
-void cmrule(int arrlen,int *arr,char **argv) {
-    int i,max=3;
+void cmrule(int sec,int arrlen,int *arr,char **argv) {
+    int i,j,max=3;
     char answer;
-    for(i=0;i<arrlen;i++) {
-        if((arr[i+1] - arr[i]) > max){
-            if(strcmp(argv[1],"rand") != 0) {
+    int section = arrlen/(sec+1);
+    for(i=0;i<arrlen;) {
+        for(j=0;j<section;j++) {
+            if((arr[i+section] - arr[i]) > max){
                 char answer;
-                printf("\nBook %d with hight %d is bigger then Book %d with height %d, hight difference is %d and max is %d",i+1,arr[i+1],i,arr[i], arr[i+1]-arr[i], max);
+                printf("\nBook %d with hight %d is bigger then Book %d with height %d, hight difference is %d and max is %d",i+1,arr[i+section],i,arr[i], arr[i+section]-arr[i], max);
                 printf("\nWant to Insert a different book ? : ");
                 scanf("%s", &answer);
                 if(strcmp(&answer, "yes") == 0) {
@@ -85,9 +86,8 @@ void cmrule(int arrlen,int *arr,char **argv) {
                 } else {
                     exit(-3);
                 }
-           } else {
-               main(1,argv);
-           }
+            }
+        i++;
         }
     }
 }

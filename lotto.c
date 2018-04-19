@@ -64,7 +64,16 @@ int compare (int *arr,int *arr2) {
   return correct;
 }
 
-bool numberValidation (int *number,int i) {
+bool numberValidation (int *number,int i,int scan) {
+  if (scan != 1) {
+      printf("\nNot a Number Retry \n");
+    do {
+      number[i] = getchar();
+      fflush(stdout);
+    } while(!isdigit(number[i]));
+    ungetc(number[i], stdin);
+    return true;
+  }
   if(number[i] > 49 || number[i] == 0) {
     printf("\nNumber above 49 or 0 retry");
     return true;
@@ -83,12 +92,13 @@ void self () {
   clrscr();
   int lottonumbers[6];
   int numbers[6];
+  int scanfreturn;
   printf("\nStarting Self");
   for(int i=0;i<=5;i++) {
     do {
       printf("\nEnter a Number between 1-49 - %d: ", i+1);
-      scanf(" %d", &numbers[i]);
-    } while (numberValidation(numbers,i));
+      scanfreturn = scanf("%d", &numbers[i]);
+    } while (numberValidation(numbers,i,scanfreturn));
   }
   bubbleSort(6,numbers);
   drawnumbers(lottonumbers);
@@ -136,13 +146,24 @@ void simulation () {
   printf("\n\n%d correct numbers overall", correctAll);
 }
 
+
+bool charValidation(char input) {
+  if (input != 'x' && input != 's') {
+    printf("\nNo Valid Inputs");
+    return true;
+  }
+  return false;
+}
+
 int main() {
   srand(time(0));
   char auswahl;
   clrscr();
   printf("\nLotto Game v1");
-  printf("\nPlay by yourself (x) start Simulation (s) : ");
-  scanf("%c", &auswahl);
+  do {
+    printf("\nPlay by yourself (x) start Simulation (s) : ");
+    scanf(" %c", &auswahl);
+  } while (charValidation(auswahl));
   switch (auswahl) {
     case 'x' : self(); break;
     case 's' : simulation(); break;
