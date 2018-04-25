@@ -15,7 +15,7 @@ int main () {
     size_t res;
     struct Person first;
 
-    fl = fopen ( "info.csv" , "r+" );
+    fl = fopen ( "test.csv" , "r+" );
     if (fl==NULL) {
         fprintf (stderr, "File error\n"); 
         exit (1);

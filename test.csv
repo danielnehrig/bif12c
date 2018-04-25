@@ -1,0 +1,9 @@
+Name;Vorname;Titel;ISBN;Ausleihdatum;Rückgabedatum
+Paulussen;Hans;Programmieren von a-z;12345;01.01.2016;02.03.2016
+Meiser;Peter;UML 2.0;65478;06.05.2017;07.06.2017
+Müller;Klaus;UML 2.0;65478;08.06.2017;20.06.2017
+Hansen;Leopold;PHP-Grundlagen;74589;21.01.2016;22.03.2016
+Peterson;Erwin;OOP mit C++;95135;01.02.2018;03.02.2018
+Meiser;Peter;CSharp für alle;65893;06.03.2018;
+Müller;Klaus;OOP mit C++;95135;08.04.2018;
+Meiser;Peter;MsSql for dummies;12541;17.03.2018;08.04.2018
