@@ -51,26 +51,38 @@ void place(int **player,char *fieldArr,int *posX,int *posY) {
 
 int winValidation(char fieldArr[3][3], int *turns) {
   int winner = 0;
-  int counting = 0;
-  int o = 0;
-  int p = 0;
-  if (*turns >= 5) {
-    for (int i = 0; i < 3; i++) {
-      for (int k = 0; k < 3; k++) {
-        // Horizontal WinValidation
-        printf("DEBUG %c and %c\n", fieldArr[i][k], fieldArr[i][k+o]);
-        if (fieldArr[i][k] == fieldArr[i][k+o] && (fieldArr[i][k] == 'x' || fieldArr[i][k] == 'o')) {
-          counting++;
-          printf("DEBUG Count = %d\n", counting);
-          k++;
-          o--;
+  char marker;
+
+  // row check
+  for (int i = 0; i < 3; i++) {
+    marker = fieldArr[i][0];
+    if(marker != '-') {
+      if(fieldArr[i][1] == marker &&
+         fieldArr[i][2] == marker) {
+        if(marker == 'o') {
+          winner = 1;
+        } else {
+          winner = 2;
         }
       }
     }
   }
-  if ( counting == 2 ) {
-    winner = 1;
+
+  // Column Check
+  for (int i = 0; i < 3; i++) {
+    marker = fieldArr[0][i];
+    if(marker != '-') {
+      if(fieldArr[1][i] == marker &&
+         fieldArr[2][i] == marker) {
+        if(marker == 'o') {
+          winner = 1;
+        } else {
+          winner = 2;
+        }
+      }
+    }
   }
+
   return winner;
 }
 
