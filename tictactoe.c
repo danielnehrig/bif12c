@@ -13,7 +13,7 @@ bool chooseValidation(char choose) {
   return false;
 }
 
-// Game Logic //
+// Game Logic
 void fieldRender(char fieldArr[3][3]) {
   for(int i=0;i<3;i++) {
     for(int k=0;k<3;k++) {
@@ -49,14 +49,32 @@ void place(int **player,char *fieldArr,int *posX,int *posY) {
   }
 }
 
-void winValidation(char *fieldArr) {
-  for (int i = 0; i < 3; i++) {
-    for(int k = 0; k < 3; k++) {
+int winValidation(char fieldArr[3][3], int *turns) {
+  int winner = 0;
+  int counting = 0;
+  int o = 0;
+  int p = 0;
+  if (*turns >= 5) {
+    for (int i = 0; i < 3; i++) {
+      for (int k = 0; k < 3; k++) {
+        // Horizontal WinValidation
+        printf("DEBUG %c and %c\n", fieldArr[i][k], fieldArr[i][k+o]);
+        if (fieldArr[i][k] == fieldArr[i][k+o] && (fieldArr[i][k] == 'x' || fieldArr[i][k] == 'o')) {
+          counting++;
+          printf("DEBUG Count = %d\n", counting);
+          k++;
+          o--;
+        }
+      }
     }
   }
+  if ( counting == 2 ) {
+    winner = 1;
+  }
+  return winner;
 }
 
-void move(char *fieldArr, char choose, int *posX, int *posY, int *player) { 
+void move(char *fieldArr, char choose, int *posX, int *posY, int *player, int *turns) { 
   //*(fieldArr + *posY * 3 + *posX) = '-';
 
 
@@ -65,7 +83,7 @@ void move(char *fieldArr, char choose, int *posX, int *posY, int *player) {
     case 'a': (*posX)-- ; break;
     case 's': (*posY)++ ; break;
     case 'd': (*posX)++ ; break;
-    case 'p': place(&player,fieldArr,posX,posY) ; break;
+    case 'p': place(&player,fieldArr,posX,posY); (*turns)++ ; break;
   }
 
   if(*posX < 0) *posX = 2;
@@ -90,6 +108,8 @@ int main() {
   int posX = 0, posY = 0;
   fieldArr[posX][posY] = '-';
   int player = 1;
+  int turns = 0;
+  int winner = 0;
 
   do {
     printf("\n********************\n");
@@ -97,19 +117,28 @@ int main() {
     printf("********************\n");
     printf("\nPress x to exit the game\n\n");
     fieldRender(fieldArr);
+
     do {
       if(player == 1) {
         printf("\nPlayer 1 Turn\n");
       } else {
         printf("\nPlayer 2 Turn\n");
       }
+
       printf("\nMove with W A S D and P to Place : ");
       scanf(" %c", &choose);
     } while(chooseValidation(choose));
+
     clrscr();
-    move(*fieldArr,choose,&posX,&posY,&player);
-    winValidation(*fieldArr);
+    move(*fieldArr,choose,&posX,&posY,&player,&turns);
+    winner = winValidation(fieldArr,&turns);
+
+    if (winner == 1 || winner == 2) {
+      break;
+    }
   } while (choose != 'x');
+
+  printf("The Winner is Player %d", winner);
 
   return 1;
 }
