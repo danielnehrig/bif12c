@@ -6,6 +6,11 @@ script:
   - "gcc -coverage calc.c -o calc"
   - "./calc < calc_test.txt"
   - "gcov calc.c"
+  - "cd ./src"
   - "gcc -std=c99 -coverage auswahl.c -o auswahl"
+  - "gcc -std=c99 -coverage figure.c -o figure"
+  - "gcc -std=c99 -coverage lotto.c -o lotto"
+  - "gcc -std=c99 -coverage tictactoe.c -o tictactoe"
+  - "gcc -std=c99 -coverage readfile.c -o readfile"
 after_success:
   - bash <(curl -s https://codecov.io/bash)
