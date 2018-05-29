@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
     printf("\nPress x to exit the game\n\n");
     fieldRender(fieldArr);
 
-    if (turns == 0 && fieldArr[0][0] == '1') {
+    if (turns == 0) {
       printf("Coinflip Player %d starts", coinflip);
     }
 
