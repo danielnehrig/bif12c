@@ -20,7 +20,6 @@ int main(int argc, char *argv[]) {
   int coinflip = 0;
 
   coinflip = (rand() % 2) + 1;
-  printf("Coinflip Player %d starts", coinflip);
   player = coinflip;
   char starting = (player == 1) ? PLAYER1_MOV_SYM: PLAYER2_MOV_SYM;
   fieldArr[0][0] = starting;
@@ -33,10 +32,11 @@ int main(int argc, char *argv[]) {
     fieldRender(fieldArr);
 
     if (turns == 0 && fieldArr[0][0] == '1') {
+      printf("Coinflip Player %d starts", coinflip);
     }
 
     do {
-      if(player == 1) {
+      if (player == 1) {
         printf("\nPlayer 1 Turn\n");
       } else {
         printf("\nPlayer 2 Turn\n");
@@ -44,14 +44,14 @@ int main(int argc, char *argv[]) {
 
       printf("\nMove with W A S D and P to Place : ");
       scanf(" %c", &choose);
-    } while(chooseValidation(choose));
+    } while (chooseValidation(choose));
 
     clrscr();
     move(*fieldArr, choose, &posX, &posY, &player, &turns);
     winner = winValidation(fieldArr, &turns);
   } while (choose != 'x' && winner == 0 && turns < (BOARD_SIZE * BOARD_SIZE));
 
-  (winner != 0) ? printf("The Winner is Player %d\n", winner): printf("No Winner in this Game\n");
+  (winner != 0) ? printf("The Winner is Player %d\n", winner) : printf("No Winner in this Game\n");
 
   return EXIT_SUCCESS;
 }
