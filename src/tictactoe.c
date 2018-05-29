@@ -104,10 +104,13 @@ int winValidation(char fieldArr[3][3], int *turns) {
         if(marker != '-' && marker != '*') {
           if(fieldArr[i+diag][i+diag] == marker) {
             countDiag++;
-            if (countDiag == 2 && marker == 'o') {
-              winner = 1;
-            } else {
-              winner = 2;
+            if (countDiag == 2) {
+              printf("Column Win\n");
+              if (marker == 'o') {
+                winner = 1;
+              } else {
+                winner = 2;
+              }
             }
           }
         }
@@ -177,9 +180,9 @@ int main() {
     clrscr();
     move(*fieldArr,choose,&posX,&posY,&player,&turns);
     winner = winValidation(fieldArr,&turns);
-  } while (choose != 'x' && winner == 0);
+  } while (choose != 'x' && winner == 0 && turns < 9);
 
-  printf("The Winner is Player %d", winner);
+  (winner != 0) ? printf("The Winner is Player %d", winner): printf("No Winner in this Game");
 
   return 1;
 }
