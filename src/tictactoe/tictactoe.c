@@ -14,9 +14,8 @@ char PLAYER2_MOV_SYM = '2';
 
 // Validation stuff
 bool chooseValidation(char choose) {
-  if(choose != 'a' && choose != 'w' && choose != 's' && choose != 'd' && choose != 'p' && choose != 'x') {
+  if (choose != 'a' && choose != 'w' && choose != 's' && choose != 'd' && choose != 'p' && choose != 'x') {
     printf("Use one of the Defined Characters to move and place\n");
-
     return true;
   }
 
@@ -25,9 +24,8 @@ bool chooseValidation(char choose) {
 
 // Game Logic
 void fieldRender(char fieldArr[3][3]) {
-  for(int i=0;i<BOARD_SIZE;i++) {
-    for(int k=0;k<BOARD_SIZE;k++) {
-
+  for (int i=0; i < BOARD_SIZE; i++) {
+    for (int k=0; k < BOARD_SIZE; k++) {
       printf("[ %c ]\t", fieldArr[i][k]);
     }
     printf("\n\n");
@@ -35,17 +33,16 @@ void fieldRender(char fieldArr[3][3]) {
 }
 
 bool placeValidation(int ***player,char *fieldArr,int *posX,int *posY) {
-  if(***player == 1 && (*(fieldArr + *posY * BOARD_SIZE + *posX) == '-' || *(fieldArr + *posY * BOARD_SIZE + *posX) == '*')) {
+  if (***player == 1 && (*(fieldArr + *posY * BOARD_SIZE + *posX) == '-' || *(fieldArr + *posY * BOARD_SIZE + *posX) == '*')) {
     printf("\no Placed by Player 1\n");
     *(fieldArr + *posY * BOARD_SIZE + *posX) = PLAYER1_SYM;
 
     return true;
   }
 
-  if(***player == 2 && (*(fieldArr + *posY * BOARD_SIZE + *posX) == '-' || *(fieldArr + *posY * BOARD_SIZE + *posX) == '*')) {
+  if (***player == 2 && (*(fieldArr + *posY * BOARD_SIZE + *posX) == '-' || *(fieldArr + *posY * BOARD_SIZE + *posX) == '*')) {
     printf("\nx Placed by Player 2\n");
     *(fieldArr + *posY * BOARD_SIZE + *posX) = PLAYER2_SYM;
-
     return true;
   }
 
@@ -55,9 +52,10 @@ bool placeValidation(int ***player,char *fieldArr,int *posX,int *posY) {
 void place(int **player,char *fieldArr,int *posX,int *posY) {
   bool placed = false;
   placed = placeValidation(&player,fieldArr,posX,posY);
-  if(placed && **player == 1) {
+
+  if (placed && **player == 1) {
     (**player) = 2;
-  } else if(placed && **player == 2) {
+  } else if (placed && **player == 2) {
     (**player) = 1;
   } else {
     printf("\nNo player change %d", **player);
@@ -72,11 +70,11 @@ int winValidation(char fieldArr[BOARD_SIZE][BOARD_SIZE], int *turns) {
     // row check
     for (int i = 0; i < BOARD_SIZE; i++) {
       marker = fieldArr[i][0];
-      if(marker != '-' && marker != '*') {
-        if(fieldArr[i][1] == marker &&
+      if (marker != '-' && marker != '*') {
+        if (fieldArr[i][1] == marker &&
            fieldArr[i][2] == marker) {
           printf("Row Win\n");
-          if(marker == PLAYER1_SYM) {
+          if (marker == PLAYER1_SYM) {
             winner = 1;
           } else {
             winner = 2;
@@ -89,11 +87,11 @@ int winValidation(char fieldArr[BOARD_SIZE][BOARD_SIZE], int *turns) {
     if (winner == 0) {
       for (int i = 0; i < BOARD_SIZE; i++) {
         marker = fieldArr[0][i];
-        if(marker != '-' && marker != '*') {
-          if(fieldArr[1][i] == marker &&
+        if (marker != '-' && marker != '*') {
+          if (fieldArr[1][i] == marker &&
              fieldArr[2][i] == marker) {
             printf("Column Win\n");
-            if(marker == PLAYER1_SYM) {
+            if (marker == PLAYER1_SYM) {
               winner = 1;
             } else {
               winner = 2;
@@ -109,8 +107,8 @@ int winValidation(char fieldArr[BOARD_SIZE][BOARD_SIZE], int *turns) {
     if (winner == 0) {
       for (int i = 0; i < BOARD_SIZE; i++) {
         marker = fieldArr[i][i];
-        if(marker != '-' && marker != '*') {
-          if(fieldArr[i+diag][i+diag] == marker) {
+        if (marker != '-' && marker != '*') {
+          if (fieldArr[i+diag][i+diag] == marker) {
             countDiag++;
             if (countDiag == 2) {
               printf("Column Win\n");
@@ -133,13 +131,12 @@ void move(char *fieldArr, char choose, int *posX, int *posY, int *player, int *t
   char temp = *(fieldArr + *posY * BOARD_SIZE + *posX);
   //*(fieldArr + *posY * 3 + *posX) = '-';
 
-
   switch(choose) {
-    case 'w': (*posY)-- ; break;
-    case 'a': (*posX)-- ; break;
-    case 's': (*posY)++ ; break;
-    case 'd': (*posX)++ ; break;
-    case 'p': place(&player,fieldArr,posX,posY); (*turns)++ ; break;
+    case 'w': (*posY)--; break;
+    case 'a': (*posX)--; break;
+    case 's': (*posY)++; break;
+    case 'd': (*posX)++; break;
+    case 'p': place(&player,fieldArr,posX,posY); (*turns)++; break;
   }
 
   if(*posX < 0) *posX = BOARD_SIZE-1;
@@ -147,7 +144,7 @@ void move(char *fieldArr, char choose, int *posX, int *posY, int *player, int *t
   if(*posY < 0) *posY = BOARD_SIZE-1;
   if(*posY > BOARD_SIZE-1) *posY = 0;
 
-  printf("\n%c %d %d - player : %d\n", *(fieldArr + *posY * BOARD_SIZE + *posX),*posY,*posX,*player);
+  printf("\n%c %d %d - player : %d\n", *(fieldArr + *posY * BOARD_SIZE + *posX), *posY, *posX, *player);
   //*(fieldArr + *posY * 3 + *posX) = *player;
 }
 
@@ -186,11 +183,11 @@ int main() {
     } while(chooseValidation(choose));
 
     clrscr();
-    move(*fieldArr,choose,&posX,&posY,&player,&turns);
-    winner = winValidation(fieldArr,&turns);
-  } while (choose != 'x' && winner == 0 && turns < BOARD_SIZE*BOARD_SIZE);
+    move(*fieldArr, choose, &posX, &posY, &player, &turns);
+    winner = winValidation(fieldArr, &turns);
+  } while (choose != 'x' && winner == 0 && turns < (BOARD_SIZE * BOARD_SIZE));
 
   (winner != 0) ? printf("The Winner is Player %d\n", winner): printf("No Winner in this Game\n");
 
-  return 1;
+  return EXIT_SUCCESS;
 }
