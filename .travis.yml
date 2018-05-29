@@ -10,7 +10,8 @@ script:
   - "gcc -std=c99 -coverage ./auswahl/auswahl.c -o auswahl"
   - "gcc -std=c99 -coverage ./figure/figure.c -o figure"
   - "gcc -std=c99 -coverage ./lotto/lotto.c -o lotto"
-  - "gcc -std=c99 -coverage ./tictactoe/tictactoe.c -o tictactoe"
   - "gcc -std=c99 -coverage ./readfile/readfile.c -o readfile"
+  - "cd tictactoe"
+  - "make"
 after_success:
   - bash <(curl -s https://codecov.io/bash)
