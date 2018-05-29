@@ -72,7 +72,7 @@ int winValidation(char fieldArr[BOARD_SIZE][BOARD_SIZE], int *turns) {
     // row check
     for (int i = 0; i < BOARD_SIZE; i++) {
       marker = fieldArr[i][0];
-      if (marker != '-' && marker != '*') {
+      if (marker != '-' && (marker != PLAYER1_MOV_SYM && marker != PLAYER2_MOV_SYM)) {
         if (fieldArr[i][1] == marker &&
            fieldArr[i][2] == marker) {
           printf("Row Win\n");
@@ -89,7 +89,7 @@ int winValidation(char fieldArr[BOARD_SIZE][BOARD_SIZE], int *turns) {
     if (winner == 0) {
       for (int i = 0; i < BOARD_SIZE; i++) {
         marker = fieldArr[0][i];
-        if (marker != '-' && marker != '*') {
+        if (marker != '-' && (marker != PLAYER1_MOV_SYM && marker != PLAYER2_MOV_SYM)) {
           if (fieldArr[1][i] == marker &&
              fieldArr[2][i] == marker) {
             printf("Column Win\n");
@@ -105,12 +105,11 @@ int winValidation(char fieldArr[BOARD_SIZE][BOARD_SIZE], int *turns) {
 
     // Left to Right Diag Check
     int countDiag = 0;
-    int diag = 1;
     if (winner == 0) {
       for (int i = 0; i < BOARD_SIZE; i++) {
         marker = fieldArr[i][i];
-        if (marker != '-' && marker != '*') {
-          if (fieldArr[i+diag][i+diag] == marker) {
+        if (marker != '-' && (marker != PLAYER1_MOV_SYM && marker != PLAYER2_MOV_SYM)) {
+          if (fieldArr[i+1][i+1] == marker) {
             countDiag++;
             if (countDiag == 2) {
               printf("Diag LR Win\n");
@@ -125,15 +124,14 @@ int winValidation(char fieldArr[BOARD_SIZE][BOARD_SIZE], int *turns) {
       }
     }
 
-    // Right to Left Diag Check
+    //  Right to Left Diag Check
     countDiag = 0;
-    diag = 1;
-    int k = 0;
+    int i = 2;
     if (winner == 0) {
-      for (int i = 2; i < BOARD_SIZE; i--, k++) {
+      for (int k = 0; k < BOARD_SIZE; i--, k++) {
         marker = fieldArr[k][i];
-        if (marker != '-' && marker != '*') {
-          if (fieldArr[k+diag][i-diag] == marker) {
+        if (marker != '-' && (marker != PLAYER1_MOV_SYM && marker != PLAYER2_MOV_SYM)) {
+          if (fieldArr[k+1][i-1] == marker) {
             countDiag++;
             if (countDiag == 2) {
               printf("Diag RL Win\n");
