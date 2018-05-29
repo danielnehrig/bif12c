@@ -2,11 +2,13 @@
 #include "settings.h"
 #include "func.h"
 
+extern int BOARD_SIZE;
+
 /*
  * Render the Game Field
  * @param {char} fieldArr
  */
-void fieldRender(char fieldArr[3][3]) {
+void fieldRender(char **fieldArr) {
   for (int i=0; i < BOARD_SIZE; i++) {
     for (int k=0; k < BOARD_SIZE; k++) {
       printf("[ %c ]\t", fieldArr[i][k]);

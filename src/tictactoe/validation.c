@@ -62,7 +62,7 @@ void place(int **player,char *fieldArr,int *posX,int *posY) {
  * @param {char} fieldArr
  * @param {int} turns
  */
-int winValidation(char fieldArr[BOARD_SIZE][BOARD_SIZE], int *turns) {
+int winValidation(char **fieldArr, int *turns) {
   int winner = 0;
   char marker;
 

@@ -7,17 +7,24 @@
 
 int main(int argc, char *argv[]) {
   srand(time(NULL));
-  char fieldArr[3][3] = {
-                          {'-','-','-'},
-                          {'-','-','-'},
-                          {'-','-','-'}
-                        };
+  BOARD_SIZE = 3;
+  char **fieldArr;
   char choose;
   int posX = 0, posY = 0;
   int player = 1;
   int turns = 0;
   int winner = 0;
   int coinflip = 0;
+
+  // Dynamiclly allocate memory 2d array of chars
+  printf("Enter Board Size : ");
+  scanf(" %d", &BOARD_SIZE);
+  // Single Array allocating
+  fieldArr = malloc(BOARD_SIZE * sizeof(char*));
+  for (int i = 0; i < BOARD_SIZE; i++) {
+    // Allocate an array inside the array
+    fieldArr[i] = malloc(BOARD_SIZE * sizeof(char));
+  }
 
   coinflip = (rand() % 2) + 1;
   player = coinflip;
@@ -52,6 +59,11 @@ int main(int argc, char *argv[]) {
   } while (choose != 'x' && winner == 0 && turns < (BOARD_SIZE * BOARD_SIZE));
 
   (winner != 0) ? printf("The Winner is Player %d\n", winner) : printf("No Winner in this Game\n");
+
+  for (int i = 0; i < BOARD_SIZE; i++) {
+    free(fieldArr[i]);
+  }
+  free(fieldArr);
 
   return EXIT_SUCCESS;
 }
