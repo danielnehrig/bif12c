@@ -5,7 +5,7 @@
 #include "settings.h"
 #include "func.h"
 
-int main() {
+int main(int argc, char *argv[]) {
   srand(time(NULL));
   char fieldArr[3][3] = {
                           {'-','-','-'},
@@ -14,11 +14,16 @@ int main() {
                         };
   char choose;
   int posX = 0, posY = 0;
-  fieldArr[posX][posY] = PLAYER1_MOV_SYM;
   int player = 1;
   int turns = 0;
   int winner = 0;
   int coinflip = 0;
+
+  coinflip = (rand() % 2) + 1;
+  printf("Coinflip Player %d starts", coinflip);
+  player = coinflip;
+  char starting = (player == 1) ? PLAYER1_MOV_SYM: PLAYER2_MOV_SYM;
+  fieldArr[0][0] = starting;
 
   do {
     printf("\n********************\n");
@@ -27,10 +32,7 @@ int main() {
     printf("\nPress x to exit the game\n\n");
     fieldRender(fieldArr);
 
-    if (turns == 0) {
-      coinflip = (rand() % 2) + 1;
-      printf("Coinflip Player %d starts", coinflip);
-      player = coinflip;
+    if (turns == 0 && fieldArr[0][0] == '1') {
     }
 
     do {

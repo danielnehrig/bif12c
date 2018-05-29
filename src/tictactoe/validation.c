@@ -24,14 +24,12 @@ bool chooseValidation(char choose) {
  */
 bool placeValidation(int ***player,char *fieldArr,int *posX,int *posY) {
   if (***player == 1 && (*(fieldArr + *posY * BOARD_SIZE + *posX) != 'x' && *(fieldArr + *posY * BOARD_SIZE + *posX) != 'o')) {
-    printf("\no Placed by Player 1\n");
     *(fieldArr + *posY * BOARD_SIZE + *posX) = PLAYER1_SYM;
 
     return true;
   }
 
   if (***player == 2 && (*(fieldArr + *posY * BOARD_SIZE + *posX) != 'x' && *(fieldArr + *posY * BOARD_SIZE + *posX) != 'o')) {
-    printf("\nx Placed by Player 2\n");
     *(fieldArr + *posY * BOARD_SIZE + *posX) = PLAYER2_SYM;
     return true;
   }
@@ -40,7 +38,7 @@ bool placeValidation(int ***player,char *fieldArr,int *posX,int *posY) {
 }
 
 /*
- * Validates if Object can be placed and if currents player turn is over
+ * Validates if Object can be placed and if current player turn is over
  * @param {int} player
  * @param {char} fieldArr
  * @param {int} posX
