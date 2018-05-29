@@ -1,10 +1,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <time.h>
 #include "settings.h"
 #include "func.h"
 
 int main() {
+  srand(time(NULL));
   char fieldArr[3][3] = {
                           {'-','-','-'},
                           {'-','-','-'},
@@ -12,10 +14,11 @@ int main() {
                         };
   char choose;
   int posX = 0, posY = 0;
-  fieldArr[posX][posY] = FIELD_REN_SYM;
+  fieldArr[posX][posY] = PLAYER1_MOV_SYM;
   int player = 1;
   int turns = 0;
   int winner = 0;
+  int coinflip = 0;
 
   do {
     printf("\n********************\n");
@@ -23,6 +26,12 @@ int main() {
     printf("********************\n");
     printf("\nPress x to exit the game\n\n");
     fieldRender(fieldArr);
+
+    if (turns == 0) {
+      coinflip = (rand() % 2) + 1;
+      printf("Coinflip Player %d starts", coinflip);
+      player = coinflip;
+    }
 
     do {
       if(player == 1) {
