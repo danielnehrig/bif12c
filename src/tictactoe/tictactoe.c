@@ -18,9 +18,9 @@ int main(int argc, char *argv[]) {
 
   // Dynamiclly allocate memory 2d array of chars
   do {
-    printf("Enter Board Size : ");
+    printf("Enter Board Size Between 3 and 20 : ");
     scanf(" %d", &BOARD_SIZE);
-  } while ( BOARD_SIZE < 1 && BOARD_SIZE > 20 );
+  } while ( BOARD_SIZE < 3 && BOARD_SIZE > 20 );
   // Single Array allocating
   fieldArr = malloc(BOARD_SIZE * sizeof(char*));
   for (int i = 0; i < BOARD_SIZE; i++) {
