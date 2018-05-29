@@ -8,8 +8,10 @@
 bool chooseValidation(char choose) {
   if(choose != 'a' && choose != 'w' && choose != 's' && choose != 'd' && choose != 'p' && choose != 'x') {
     printf("Use one of the Defined Characters to move and place\n");
+
     return true;
   }
+
   return false;
 }
 
@@ -17,6 +19,7 @@ bool chooseValidation(char choose) {
 void fieldRender(char fieldArr[3][3]) {
   for(int i=0;i<3;i++) {
     for(int k=0;k<3;k++) {
+
       printf("[ %c ]\t", fieldArr[i][k]);
     }
     printf("\n\n");
@@ -24,16 +27,20 @@ void fieldRender(char fieldArr[3][3]) {
 }
 
 bool placeValidation(int ***player,char *fieldArr,int *posX,int *posY) {
-  if(***player == 1 && *(fieldArr + *posY * 3 + *posX) == '-') {
+  if(***player == 1 && (*(fieldArr + *posY * 3 + *posX) == '-' || *(fieldArr + *posY * 3 + *posX) == '*')) {
     printf("\no Placed by Player 1\n");
     *(fieldArr + *posY * 3 + *posX) = 'o';
+
     return true;
   }
-  if(***player == 2 && *(fieldArr + *posY * 3 + *posX) == '-') {
+
+  if(***player == 2 && (*(fieldArr + *posY * 3 + *posX) == '-' || *(fieldArr + *posY * 3 + *posX) == '*')) {
     printf("\nx Placed by Player 2\n");
     *(fieldArr + *posY * 3 + *posX) = 'x';
+
     return true;
   }
+
   return false;
 }
 
@@ -53,31 +60,56 @@ int winValidation(char fieldArr[3][3], int *turns) {
   int winner = 0;
   char marker;
 
-  // row check
-  for (int i = 0; i < 3; i++) {
-    marker = fieldArr[i][0];
-    if(marker != '-') {
-      if(fieldArr[i][1] == marker &&
-         fieldArr[i][2] == marker) {
-        if(marker == 'o') {
-          winner = 1;
-        } else {
-          winner = 2;
+  if (*turns > 4) {
+    // row check
+    for (int i = 0; i < 3; i++) {
+      marker = fieldArr[i][0];
+      if(marker != '-' && marker != '*') {
+        if(fieldArr[i][1] == marker &&
+           fieldArr[i][2] == marker) {
+          printf("Row Win\n");
+          if(marker == 'o') {
+            winner = 1;
+          } else {
+            winner = 2;
+          }
         }
       }
     }
-  }
 
-  // Column Check
-  for (int i = 0; i < 3; i++) {
-    marker = fieldArr[0][i];
-    if(marker != '-') {
-      if(fieldArr[1][i] == marker &&
-         fieldArr[2][i] == marker) {
-        if(marker == 'o') {
-          winner = 1;
-        } else {
-          winner = 2;
+    // Column Check
+    if (winner == 0) {
+      for (int i = 0; i < 3; i++) {
+        marker = fieldArr[0][i];
+        if(marker != '-' && marker != '*') {
+          if(fieldArr[1][i] == marker &&
+             fieldArr[2][i] == marker) {
+            printf("Column Win\n");
+            if(marker == 'o') {
+              winner = 1;
+            } else {
+              winner = 2;
+            }
+          }
+        }
+      }
+    }
+
+    // Left to Right Diag Check
+    int countDiag = 0;
+    int diag = 1;
+    if (winner == 0) {
+      for (int i = 0; i < 3; i++) {
+        marker = fieldArr[i][i];
+        if(marker != '-' && marker != '*') {
+          if(fieldArr[i+diag][i+diag] == marker) {
+            countDiag++;
+            if (countDiag == 2 && marker == 'o') {
+              winner = 1;
+            } else {
+              winner = 2;
+            }
+          }
         }
       }
     }
@@ -87,6 +119,7 @@ int winValidation(char fieldArr[3][3], int *turns) {
 }
 
 void move(char *fieldArr, char choose, int *posX, int *posY, int *player, int *turns) { 
+  char temp = *(fieldArr + *posY * 3 + *posX);
   //*(fieldArr + *posY * 3 + *posX) = '-';
 
 
@@ -144,11 +177,7 @@ int main() {
     clrscr();
     move(*fieldArr,choose,&posX,&posY,&player,&turns);
     winner = winValidation(fieldArr,&turns);
-
-    if (winner == 1 || winner == 2) {
-      break;
-    }
-  } while (choose != 'x');
+  } while (choose != 'x' && winner == 0);
 
   printf("The Winner is Player %d", winner);
 
