@@ -113,7 +113,30 @@ int winValidation(char fieldArr[BOARD_SIZE][BOARD_SIZE], int *turns) {
           if (fieldArr[i+diag][i+diag] == marker) {
             countDiag++;
             if (countDiag == 2) {
-              printf("Column Win\n");
+              printf("Diag LR Win\n");
+              if (marker == PLAYER1_SYM) {
+                winner = 1;
+              } else {
+                winner = 2;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // Right to Left Diag Check
+    countDiag = 0;
+    diag = 1;
+    int k = 0;
+    if (winner == 0) {
+      for (int i = 2; i < BOARD_SIZE; i--, k++) {
+        marker = fieldArr[k][i];
+        if (marker != '-' && marker != '*') {
+          if (fieldArr[k+diag][i-diag] == marker) {
+            countDiag++;
+            if (countDiag == 2) {
+              printf("Diag RL Win\n");
               if (marker == PLAYER1_SYM) {
                 winner = 1;
               } else {
