@@ -1,5 +1,6 @@
 #include <stdbool.h>
 #include <stdio.h>
+#include "settings.h"
 
 /*
  * Validates if the Current Choosen Letter is applicable

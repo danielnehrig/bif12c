@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include "settings.h"
+#include "func.h"
 
 /*
  * Render the Game Field
