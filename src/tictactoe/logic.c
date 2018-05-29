@@ -2,13 +2,11 @@
 #include "settings.h"
 #include "func.h"
 
-extern int BOARD_SIZE;
-
 /*
  * Render the Game Field
  * @param {char} fieldArr
  */
-void fieldRender(char **fieldArr) {
+void fieldRender(char **fieldArr,int BOARD_SIZE) {
   for (int i=0; i < BOARD_SIZE; i++) {
     for (int k=0; k < BOARD_SIZE; k++) {
       printf("[ %c ]\t", fieldArr[i][k]);
@@ -27,7 +25,7 @@ void fieldRender(char **fieldArr) {
  * @param {int} turns
  */
 char temp = '-';
-void move(char *fieldArr, char choose, int *posX, int *posY, int *player, int *turns) { 
+void move(char *fieldArr, char choose, int *posX, int *posY, int *player, int *turns, int BOARD_SIZE) { 
 
   switch(choose) {
     case 'w': *(fieldArr + *posY * BOARD_SIZE + *posX) = temp;

@@ -7,7 +7,7 @@
 
 int main(int argc, char *argv[]) {
   srand(time(NULL));
-  BOARD_SIZE = 3;
+  int BOARD_SIZE = 3;
   char **fieldArr;
   char choose;
   int posX = 0, posY = 0;
@@ -17,13 +17,20 @@ int main(int argc, char *argv[]) {
   int coinflip = 0;
 
   // Dynamiclly allocate memory 2d array of chars
-  printf("Enter Board Size : ");
-  scanf(" %d", &BOARD_SIZE);
+  do {
+    printf("Enter Board Size : ");
+    scanf(" %d", &BOARD_SIZE);
+  } while ( BOARD_SIZE < 1 && BOARD_SIZE > 20 );
   // Single Array allocating
   fieldArr = malloc(BOARD_SIZE * sizeof(char*));
   for (int i = 0; i < BOARD_SIZE; i++) {
     // Allocate an array inside the array
     fieldArr[i] = malloc(BOARD_SIZE * sizeof(char));
+  }
+  for (int i = 0; i < BOARD_SIZE; i++) {
+    for (int k = 0; k < BOARD_SIZE; k++) {
+      fieldArr[i][k] = '-';
+    }
   }
 
   coinflip = (rand() % 2) + 1;
@@ -36,7 +43,7 @@ int main(int argc, char *argv[]) {
     printf("** TicTacToe Game **\n");
     printf("********************\n");
     printf("\nPress x to exit the game\n\n");
-    fieldRender(fieldArr);
+    fieldRender(fieldArr, BOARD_SIZE);
 
     if (turns == 0) {
       printf("Coinflip Player %d starts", coinflip);
@@ -54,7 +61,7 @@ int main(int argc, char *argv[]) {
     } while (chooseValidation(choose));
 
     clrscr();
-    move(*fieldArr, choose, &posX, &posY, &player, &turns);
+    move(*fieldArr, choose, &posX, &posY, &player, &turns, BOARD_SIZE);
     winner = winValidation(fieldArr, &turns);
   } while (choose != 'x' && winner == 0 && turns < (BOARD_SIZE * BOARD_SIZE));
 

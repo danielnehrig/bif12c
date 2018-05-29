@@ -1,7 +1,6 @@
 /* settings.h */
 #define clrscr() printf("\e[1;1H\e[2J");
 
-static int BOARD_SIZE = 3;
 static char FIELD_REN_SYM = '-';
 static char PLAYER1_SYM = 'o';
 static char PLAYER2_SYM = 'x';

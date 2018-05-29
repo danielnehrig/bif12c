@@ -22,7 +22,7 @@ bool chooseValidation(char choose) {
  * @param {int} *posX X axis
  * @param {int} *posY Y axis
  */
-bool placeValidation(int ***player,char *fieldArr,int *posX,int *posY) {
+bool placeValidation(int ***player,char *fieldArr,int *posX,int *posY,int BOARD_SIZE) {
   if (***player == 1 && (*(fieldArr + *posY * BOARD_SIZE + *posX) != 'x' && *(fieldArr + *posY * BOARD_SIZE + *posX) != 'o')) {
     *(fieldArr + *posY * BOARD_SIZE + *posX) = PLAYER1_SYM;
 
@@ -44,9 +44,9 @@ bool placeValidation(int ***player,char *fieldArr,int *posX,int *posY) {
  * @param {int} posX
  * @param {int} posY
  */
-void place(int **player,char *fieldArr,int *posX,int *posY) {
+void place(int **player,char *fieldArr,int *posX,int *posY,int BOARD_SIZE) {
   bool placed = false;
-  placed = placeValidation(&player,fieldArr,posX,posY);
+  placed = placeValidation(&player,fieldArr,posX,posY,BOARD_SIZE);
 
   if (placed && **player == 1) {
     (**player) = 2;
@@ -62,7 +62,7 @@ void place(int **player,char *fieldArr,int *posX,int *posY) {
  * @param {char} fieldArr
  * @param {int} turns
  */
-int winValidation(char **fieldArr, int *turns) {
+int winValidation(char **fieldArr, int *turns, int BOARD_SIZE) {
   int winner = 0;
   char marker;
 

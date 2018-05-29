@@ -10,6 +10,6 @@ void place(int **,char *,int *,int *);
 int winValidation(char **fieldArr, int *);
 
 // Logic
-void fieldRender(char **fieldArr);
-void move(char *, char , int *, int *, int *, int *);
+void fieldRender(char **fieldArr, int);
+void move(char *, char , int *, int *, int *, int *, int);
 #endif
