@@ -5,6 +5,7 @@
 /*
  * Render the Game Field
  * @param {char} fieldArr
+ * @param {int} BOARD_SIZE
  */
 void fieldRender(char **fieldArr,int BOARD_SIZE) {
   for (int i=0; i < BOARD_SIZE; i++) {
@@ -23,6 +24,7 @@ void fieldRender(char **fieldArr,int BOARD_SIZE) {
  * @param {int} posY
  * @param {int} player
  * @param {int} turns
+ * @param {int} BOARD_SIZE
  */
 char temp = '-';
 void move(char *fieldArr, char choose, int *posX, int *posY, int *player, int *turns, int BOARD_SIZE) { 
