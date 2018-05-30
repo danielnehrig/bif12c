@@ -70,9 +70,46 @@ void move(char *fieldArr, char choose, int *posX, int *posY, int *player, int *t
               break;
   }
 
-  if(*posX < 0) *posX = BOARD_SIZE-1;
-  if(*posX > BOARD_SIZE-1) *posX = 0;
-  if(*posY < 0) *posY = BOARD_SIZE-1;
-  if(*posY > BOARD_SIZE-1) *posY = 0;
+  // Note auslagern in andere funktion
+  if(*posX < 0) {
+      *(fieldArr + *posY * BOARD_SIZE + *posX) = temp;
+      *posX = BOARD_SIZE-1;
+      temp = *(fieldArr + *posY * BOARD_SIZE + *posX);
+      if (*player == 1) {
+        *(fieldArr + *posY * BOARD_SIZE + *posX) = PLAYER1_MOV_SYM;
+      } else {
+        *(fieldArr + *posY * BOARD_SIZE + *posX) = PLAYER2_MOV_SYM;
+      }
+  }
+  if(*posX > BOARD_SIZE-1) {
+      *(fieldArr + *posY * BOARD_SIZE + *posX) = temp;
+      *posX = 0;
+      temp = *(fieldArr + *posY * BOARD_SIZE + *posX);
+      if (*player == 1) {
+        *(fieldArr + *posY * BOARD_SIZE + *posX) = PLAYER1_MOV_SYM;
+      } else {
+        *(fieldArr + *posY * BOARD_SIZE + *posX) = PLAYER2_MOV_SYM;
+      }
+  }
+  if(*posY < 0) {
+      *(fieldArr + *posY * BOARD_SIZE + *posX) = temp;
+      *posY = BOARD_SIZE-1;
+      temp = *(fieldArr + *posY * BOARD_SIZE + *posX);
+      if (*player == 1) {
+        *(fieldArr + *posY * BOARD_SIZE + *posX) = PLAYER1_MOV_SYM;
+      } else {
+        *(fieldArr + *posY * BOARD_SIZE + *posX) = PLAYER2_MOV_SYM;
+      }
+  }
+  if(*posY > BOARD_SIZE-1) {
+      *(fieldArr + *posY * BOARD_SIZE + *posX) = temp;
+      *posY = 0;
+      temp = *(fieldArr + *posY * BOARD_SIZE + *posX);
+      if (*player == 1) {
+        *(fieldArr + *posY * BOARD_SIZE + *posX) = PLAYER1_MOV_SYM;
+      } else {
+        *(fieldArr + *posY * BOARD_SIZE + *posX) = PLAYER2_MOV_SYM;
+      }
+  }
   printf("At position [%d][%d] Currently\n", *posY, *posX);
 }
