@@ -74,4 +74,5 @@ void move(char *fieldArr, char choose, int *posX, int *posY, int *player, int *t
   if(*posX > BOARD_SIZE-1) *posX = 0;
   if(*posY < 0) *posY = BOARD_SIZE-1;
   if(*posY > BOARD_SIZE-1) *posY = 0;
+  printf("At position [%d][%d] Currently\n", *posY, *posX);
 }
