@@ -10,4 +10,5 @@ prog: $(OBJ)
 	$(CC) -Wall -g -o prog $(OBJ)
 
 clean:
+	rm prog
 	rm *.o
