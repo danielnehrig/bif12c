@@ -26,13 +26,13 @@ bool chooseValidation(char choose) {
  * @param {int} BOARD_SIZE
  */
 bool placeValidation(int ***player,char **fieldArr,int *posX,int *posY,int BOARD_SIZE) {
-  if (***player == 1 && (fieldArr[*posX][*posY] != 'x' && fieldArr[*posX][*posY] != 'o')) {
+  if (***player == 1 && (fieldArr[*posY][*posX] != PLAYER2_SYM && fieldArr[*posY][*posX] != PLAYER1_SYM)) {
     fieldArr[*posY][*posX] = PLAYER1_SYM;
 
     return true;
   }
 
-  if (***player == 2 && (fieldArr[*posX][*posY] != 'x' && fieldArr[*posX][*posY] != 'o')) {
+  if (***player == 2 && (fieldArr[*posY][*posX] != PLAYER2_SYM && fieldArr[*posY][*posX] != PLAYER1_SYM)) {
     fieldArr[*posY][*posX] = PLAYER2_SYM;
     return true;
   }
@@ -52,10 +52,10 @@ void place(int **player,char **fieldArr,int *posX,int *posY,int BOARD_SIZE,int *
   placed = placeValidation(&player,fieldArr,posX,posY,BOARD_SIZE);
 
   if (placed && **player == 1) {
-    turns++;
+    (*turns)++;
     (**player) = 2;
   } else if (placed && **player == 2) {
-    turns++;
+    (*turns)++;
     (**player) = 1;
   } else {
     printf("\nNo player change %d", **player);
@@ -234,6 +234,7 @@ void move(char **fieldArr, char choose, int *posX, int *posY, int *player, int *
   if(*posX < 0) {
       fieldArr[*posY][*posX] = temp;
       *posX = BOARD_SIZE-1;
+      printf("\nReset 1\n");
       temp = fieldArr[*posY][*posX];
       if (*player == 1) {
         fieldArr[*posY][*posX] = PLAYER1_MOV_SYM;
@@ -244,6 +245,7 @@ void move(char **fieldArr, char choose, int *posX, int *posY, int *player, int *
   if(*posX > BOARD_SIZE-1) {
       fieldArr[*posY][*posX] = temp;
       *posX = 0;
+      printf("\nReset 2\n");
       temp = fieldArr[*posY][*posX];
       if (*player == 1) {
         fieldArr[*posY][*posX] = PLAYER1_MOV_SYM;
@@ -254,6 +256,7 @@ void move(char **fieldArr, char choose, int *posX, int *posY, int *player, int *
   if(*posY < 0) {
       fieldArr[*posY][*posX] = temp;
       *posY = BOARD_SIZE-1;
+      printf("\nReset 3\n");
       temp = fieldArr[*posY][*posX];
       if (*player == 1) {
         fieldArr[*posY][*posX] = PLAYER1_MOV_SYM;
@@ -264,6 +267,7 @@ void move(char **fieldArr, char choose, int *posX, int *posY, int *player, int *
   if(*posY > BOARD_SIZE-1) {
       fieldArr[*posY][*posX] = temp;
       *posY = 0;
+      printf("\nReset 4\n");
       temp = fieldArr[*posY][*posX];
       if (*player == 1) {
         fieldArr[*posY][*posX] = PLAYER1_MOV_SYM;
@@ -286,15 +290,15 @@ int main(int argc, char *argv[]) {
   int coinflip = 0;
 
   // Dynamiclly allocate memory 2d array of chars
-  do {
-    printf("Enter Board Size Between 3 and 20 : ");
-    scanf(" %d", &BOARD_SIZE);
-  } while ( BOARD_SIZE < 3 && BOARD_SIZE > 20 );
+  //do {
+  //  printf("Enter Board Size Between 3 and 20 : ");
+  //  scanf(" %d", &BOARD_SIZE);
+  //} while ( BOARD_SIZE < 3 && BOARD_SIZE > 20 );
 
-  do {
-    printf("\nEnter Win Amount Between 3 and 6 : ");
-    scanf(" %d", &winAmount);
-  } while ( winAmount < 3 && winAmount > 6 );
+  //do {
+  //  printf("\nEnter Win Amount Between 3 and 6 : ");
+  //  scanf(" %d", &winAmount);
+  //} while ( winAmount < 3 && winAmount > 6 );
 
   // Single Array allocating
   fieldArr = malloc(BOARD_SIZE * sizeof(char*));
@@ -340,6 +344,7 @@ int main(int argc, char *argv[]) {
     clrscr();
     move(fieldArr, choose, &posX, &posY, &player, &turns, BOARD_SIZE);
     winner = winValidation(fieldArr, &turns, BOARD_SIZE, winAmount);
+    printf("\nTURNS = %d\n", turns);
   } while (choose != 'x' && winner == 0 && turns < (BOARD_SIZE * BOARD_SIZE));
 
   (winner != 0) ? printf("The Winner is Player %d\n", winner) : printf("No Winner in this Game\n");
