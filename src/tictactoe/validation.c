@@ -21,6 +21,7 @@ bool chooseValidation(char choose) {
  * @param {char} *fieldArr the array which holds the game field
  * @param {int} *posX X axis
  * @param {int} *posY Y axis
+ * @param {int} BOARD_SIZE
  */
 bool placeValidation(int ***player,char *fieldArr,int *posX,int *posY,int BOARD_SIZE) {
   if (***player == 1 && (*(fieldArr + *posY * BOARD_SIZE + *posX) != 'x' && *(fieldArr + *posY * BOARD_SIZE + *posX) != 'o')) {
@@ -61,6 +62,7 @@ void place(int **player,char *fieldArr,int *posX,int *posY,int BOARD_SIZE) {
  * Validates the winner of the Game
  * @param {char} fieldArr
  * @param {int} turns
+ * @param {int} BOARD_SIZE
  */
 int winValidation(char **fieldArr, int *turns, int BOARD_SIZE) {
   int winner = 0;
