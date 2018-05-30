@@ -63,8 +63,9 @@ void place(int **player,char *fieldArr,int *posX,int *posY,int BOARD_SIZE) {
  * @param {char} fieldArr
  * @param {int} turns
  * @param {int} BOARD_SIZE
+ * @param {int} winAmount
  */
-int winValidation(char **fieldArr, int *turns, int BOARD_SIZE) {
+int winValidation(char **fieldArr, int *turns, int BOARD_SIZE, int winAmount) {
   int winner = 0;
   char marker;
 
@@ -111,7 +112,7 @@ int winValidation(char **fieldArr, int *turns, int BOARD_SIZE) {
         if (marker != '-' && (marker != PLAYER1_MOV_SYM && marker != PLAYER2_MOV_SYM)) {
           if (fieldArr[i+1][i+1] == marker) {
             countDiag++;
-            if (countDiag == 2) {
+            if (countDiag == BOARD_SIZE-1) {
               printf("Diag LR Win\n");
               if (marker == PLAYER1_SYM) {
                 winner = 1;
@@ -133,7 +134,7 @@ int winValidation(char **fieldArr, int *turns, int BOARD_SIZE) {
         if (marker != '-' && (marker != PLAYER1_MOV_SYM && marker != PLAYER2_MOV_SYM)) {
           if (fieldArr[k+1][i-1] == marker) {
             countDiag++;
-            if (countDiag == 2) {
+            if (countDiag == BOARD_SIZE-1) {
               printf("Diag RL Win\n");
               if (marker == PLAYER1_SYM) {
                 winner = 1;

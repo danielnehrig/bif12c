@@ -7,9 +7,9 @@
 bool chooseValidation(char);
 bool placeValidation(int ***,char *,int *,int *);
 void place(int **,char *,int *,int *);
-int winValidation(char **fieldArr, int *);
+int winValidation(char **, int *, int, int);
 
 // Logic
-void fieldRender(char **fieldArr, int);
+void fieldRender(char **, int);
 void move(char *, char , int *, int *, int *, int *, int);
 #endif
