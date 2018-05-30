@@ -70,7 +70,7 @@ int main(int argc, char *argv[]) {
     } while (chooseValidation(choose));
 
     clrscr();
-    move(*fieldArr, choose, &posX, &posY, &player, &turns, BOARD_SIZE);
+    move(fieldArr, choose, &posX, &posY, &player, &turns, BOARD_SIZE);
     winner = winValidation(fieldArr, &turns, BOARD_SIZE, winAmount);
   } while (choose != 'x' && winner == 0 && turns < (BOARD_SIZE * BOARD_SIZE));
 

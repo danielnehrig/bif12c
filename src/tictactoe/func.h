@@ -11,5 +11,5 @@ int winValidation(char **, int *, int, int);
 
 // Logic
 void fieldRender(char **, int);
-void move(char *, char , int *, int *, int *, int *, int);
+void move(char **, char , int *, int *, int *, int *, int);
 #endif

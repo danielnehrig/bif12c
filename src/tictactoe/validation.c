@@ -45,9 +45,9 @@ bool placeValidation(int ***player,char *fieldArr,int *posX,int *posY,int BOARD_
  * @param {int} posX
  * @param {int} posY
  */
-void place(int **player,char *fieldArr,int *posX,int *posY,int BOARD_SIZE) {
+void place(int **player,char **fieldArr,int *posX,int *posY,int BOARD_SIZE) {
   bool placed = false;
-  placed = placeValidation(&player,fieldArr,posX,posY,BOARD_SIZE);
+  placed = placeValidation(&player,*fieldArr,posX,posY,BOARD_SIZE);
 
   if (placed && **player == 1) {
     (**player) = 2;
@@ -67,33 +67,17 @@ void place(int **player,char *fieldArr,int *posX,int *posY,int BOARD_SIZE) {
  */
 int winValidation(char **fieldArr, int *turns, int BOARD_SIZE, int winAmount) {
   int winner = 0;
+  int countDiag = 0;
   char marker;
 
-  if (*turns > 4) {
+  if (*turns > (winAmount * 2) - 1) {
     // row check
     for (int i = 0; i < BOARD_SIZE; i++) {
-      marker = fieldArr[i][0];
-      if (marker != '-' && (marker != PLAYER1_MOV_SYM && marker != PLAYER2_MOV_SYM)) {
-        if (fieldArr[i][1] == marker &&
-           fieldArr[i][2] == marker) {
-          printf("Row Win\n");
-          if (marker == PLAYER1_SYM) {
-            winner = 1;
-          } else {
-            winner = 2;
-          }
-        }
-      }
-    }
-
-    // Column Check
-    if (winner == 0) {
-      for (int i = 0; i < BOARD_SIZE; i++) {
-        marker = fieldArr[0][i];
+      for (int k = 1; k < BOARD_SIZE; k++) {
+        marker = fieldArr[i][0];
         if (marker != '-' && (marker != PLAYER1_MOV_SYM && marker != PLAYER2_MOV_SYM)) {
-          if (fieldArr[1][i] == marker &&
-             fieldArr[2][i] == marker) {
-            printf("Column Win\n");
+          if (fieldArr[i][k] == marker) {
+            countDiag++;
             if (marker == PLAYER1_SYM) {
               winner = 1;
             } else {
@@ -104,9 +88,29 @@ int winValidation(char **fieldArr, int *turns, int BOARD_SIZE, int winAmount) {
       }
     }
 
-    // Left to Right Diag Check
-    int countDiag = 0;
+    // Column Check
     if (winner == 0) {
+      countDiag = 0;
+      for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int k = 0; k < BOARD_SIZE; k++) {
+          marker = fieldArr[0][i];
+          if (marker != '-' && (marker != PLAYER1_MOV_SYM && marker != PLAYER2_MOV_SYM)) {
+            if (fieldArr[k][i] == marker) {
+              countDiag++;
+              if (marker == PLAYER1_SYM) {
+                winner = 1;
+              } else {
+                winner = 2;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // Left to Right Diag Check
+    if (winner == 0) {
+      countDiag = 0;
       for (int i = 0; i < BOARD_SIZE; i++) {
         marker = fieldArr[i][i];
         if (marker != '-' && (marker != PLAYER1_MOV_SYM && marker != PLAYER2_MOV_SYM)) {
@@ -126,9 +130,9 @@ int winValidation(char **fieldArr, int *turns, int BOARD_SIZE, int winAmount) {
     }
 
     //  Right to Left Diag Check
-    countDiag = 0;
-    int i = 2;
     if (winner == 0) {
+      int i = BOARD_SIZE-1;
+      countDiag = 0;
       for (int k = 0; k < BOARD_SIZE; i--, k++) {
         marker = fieldArr[k][i];
         if (marker != '-' && (marker != PLAYER1_MOV_SYM && marker != PLAYER2_MOV_SYM)) {
