@@ -21,15 +21,18 @@ int main(int argc, char *argv[]) {
     printf("Enter Board Size Between 3 and 20 : ");
     scanf(" %d", &BOARD_SIZE);
   } while ( BOARD_SIZE < 3 && BOARD_SIZE > 20 );
+
   // Single Array allocating
   fieldArr = malloc(BOARD_SIZE * sizeof(char*));
   for (int i = 0; i < BOARD_SIZE; i++) {
     // Allocate an array inside the array
     fieldArr[i] = malloc(BOARD_SIZE * sizeof(char));
   }
+
+  // Initilize Array fields with a symbol
   for (int i = 0; i < BOARD_SIZE; i++) {
     for (int k = 0; k < BOARD_SIZE; k++) {
-      fieldArr[i][k] = '-';
+      fieldArr[i][k] = FIELD_REN_SYM;
     }
   }
 
