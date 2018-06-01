@@ -46,6 +46,8 @@ bool placeValidation(int ***player,char **fieldArr,int *posX,int *posY,int BOARD
  * @param {char} fieldArr
  * @param {int} posX
  * @param {int} posY
+ * @param {int} BOARD_SIZE
+ * @param {int} turns
  */
 void place(int **player,char **fieldArr,int *posX,int *posY,int BOARD_SIZE,int *turns) {
   bool placed = false;
@@ -290,15 +292,15 @@ int main(int argc, char *argv[]) {
   int coinflip = 0;
 
   // Dynamiclly allocate memory 2d array of chars
-  //do {
-  //  printf("Enter Board Size Between 3 and 20 : ");
-  //  scanf(" %d", &BOARD_SIZE);
-  //} while ( BOARD_SIZE < 3 && BOARD_SIZE > 20 );
+  do {
+    printf("Enter Board Size Between 3 and 20 : ");
+    scanf(" %d", &BOARD_SIZE);
+  } while ( BOARD_SIZE < 3 && BOARD_SIZE > 20 );
 
-  //do {
-  //  printf("\nEnter Win Amount Between 3 and 6 : ");
-  //  scanf(" %d", &winAmount);
-  //} while ( winAmount < 3 && winAmount > 6 );
+  do {
+    printf("\nEnter Win Amount Between 3 and 6 : ");
+    scanf(" %d", &winAmount);
+  } while ( winAmount < 3 && winAmount > 6 );
 
   // Single Array allocating
   fieldArr = malloc(BOARD_SIZE * sizeof(char*));
