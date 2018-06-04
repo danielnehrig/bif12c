@@ -279,6 +279,29 @@ void move(char **fieldArr, char choose, int *posX, int *posY, int *player, int *
   }
 }
 
+/*
+ * Validates if the entered winAmount is correct
+ * @param {int} winAmount
+ * @param {int} BOARD_SIZE
+ */
+bool winAmountValidation(int winAmount, int BOARD_SIZE) {
+  if ((winAmount < 3 || winAmount > 6) && winAmount > BOARD_SIZE) {
+    return true;
+  }
+  return false;
+}
+
+/*
+ * Validates if the entered BOARD_SIZE is correct
+ * @param {int} BOARD_SIZE
+ */
+bool boardAmountValidation(int BOARD_SIZE) {
+  if ( BOARD_SIZE < 3 || BOARD_SIZE > 20) {
+    return true;
+  }
+  return false;
+}
+
 int main(int argc, char *argv[]) {
   srand(time(NULL));
   int BOARD_SIZE = 3;
@@ -295,12 +318,12 @@ int main(int argc, char *argv[]) {
   do {
     printf("Enter Board Size Between 3 and 20 : ");
     scanf(" %d", &BOARD_SIZE);
-  } while ( BOARD_SIZE < 3 && BOARD_SIZE > 20 );
+  } while (boardAmountValidation(BOARD_SIZE));
 
   do {
     printf("\nEnter Win Amount Between 3 and 6 : ");
     scanf(" %d", &winAmount);
-  } while ( winAmount < 3 && winAmount > 6 && winAmount <= BOARD_SIZE );
+  } while (winAmountValidation(winAmount,BOARD_SIZE));
 
   // Single Array allocating
   fieldArr = malloc(BOARD_SIZE+2 * sizeof(char*));
@@ -346,7 +369,6 @@ int main(int argc, char *argv[]) {
     clrscr();
     move(fieldArr, choose, &posX, &posY, &player, &turns, BOARD_SIZE);
     winner = winValidation(fieldArr, &turns, BOARD_SIZE, winAmount);
-    printf("\nTURNS = %d\n", turns);
   } while (choose != 'x' && winner == 0 && turns < (BOARD_SIZE * BOARD_SIZE));
 
   (winner != 0) ? printf("The Winner is Player %d\n", winner) : printf("No Winner in this Game\n");
