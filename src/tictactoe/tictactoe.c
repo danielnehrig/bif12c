@@ -77,18 +77,20 @@ int winValidation(char **fieldArr, int *turns, int BOARD_SIZE, int winAmount) {
   int countDiag = 0;
   char marker;
 
-  if (*turns > (winAmount * 2) - 1) {
+  if (*turns > (winAmount * 2) - 2) {
     // row check
-    for (int i = 0; i < BOARD_SIZE; i++) {
-      for (int k = 1; k < BOARD_SIZE; k++) {
-        marker = fieldArr[i][0];
+    for (int i = 0; i < BOARD_SIZE-1; i++) {
+      marker = fieldArr[i][0];
+      for (int k = 1; k < BOARD_SIZE-1; k++) {
         if (marker != '-' && (marker != PLAYER1_MOV_SYM && marker != PLAYER2_MOV_SYM)) {
-          if (fieldArr[i][k] == marker) {
+          if (marker == fieldArr[i][k]) {
             countDiag++;
-            if (marker == PLAYER1_SYM) {
+            if (countDiag == winAmount-1 && marker == PLAYER1_SYM) {
               winner = 1;
+              printf("\nROW");
             } else {
               winner = 2;
+              printf("\nROW");
             }
           }
         }
@@ -98,16 +100,18 @@ int winValidation(char **fieldArr, int *turns, int BOARD_SIZE, int winAmount) {
     // Column Check
     if (winner == 0) {
       countDiag = 0;
-      for (int i = 0; i < BOARD_SIZE; i++) {
-        for (int k = 0; k < BOARD_SIZE; k++) {
-          marker = fieldArr[0][i];
+      for (int i = 0; i < BOARD_SIZE-1; i++) {
+        marker = fieldArr[0][i];
+        for (int k = 1; k < BOARD_SIZE-1; k++) {
           if (marker != '-' && (marker != PLAYER1_MOV_SYM && marker != PLAYER2_MOV_SYM)) {
-            if (fieldArr[k][i] == marker) {
+            if (marker == fieldArr[k][i]) {
               countDiag++;
-              if (marker == PLAYER1_SYM) {
+              if (countDiag == winAmount-1 && marker == PLAYER1_SYM) {
                 winner = 1;
+                printf("\nColumn");
               } else {
                 winner = 2;
+                printf("\nColumn");
               }
             }
           }
@@ -236,7 +240,6 @@ void move(char **fieldArr, char choose, int *posX, int *posY, int *player, int *
   if(*posX < 0) {
       fieldArr[*posY][*posX] = temp;
       *posX = BOARD_SIZE-1;
-      printf("\nReset 1\n");
       temp = fieldArr[*posY][*posX];
       if (*player == 1) {
         fieldArr[*posY][*posX] = PLAYER1_MOV_SYM;
@@ -247,7 +250,6 @@ void move(char **fieldArr, char choose, int *posX, int *posY, int *player, int *
   if(*posX > BOARD_SIZE-1) {
       fieldArr[*posY][*posX] = temp;
       *posX = 0;
-      printf("\nReset 2\n");
       temp = fieldArr[*posY][*posX];
       if (*player == 1) {
         fieldArr[*posY][*posX] = PLAYER1_MOV_SYM;
@@ -258,7 +260,6 @@ void move(char **fieldArr, char choose, int *posX, int *posY, int *player, int *
   if(*posY < 0) {
       fieldArr[*posY][*posX] = temp;
       *posY = BOARD_SIZE-1;
-      printf("\nReset 3\n");
       temp = fieldArr[*posY][*posX];
       if (*player == 1) {
         fieldArr[*posY][*posX] = PLAYER1_MOV_SYM;
@@ -269,7 +270,6 @@ void move(char **fieldArr, char choose, int *posX, int *posY, int *player, int *
   if(*posY > BOARD_SIZE-1) {
       fieldArr[*posY][*posX] = temp;
       *posY = 0;
-      printf("\nReset 4\n");
       temp = fieldArr[*posY][*posX];
       if (*player == 1) {
         fieldArr[*posY][*posX] = PLAYER1_MOV_SYM;
@@ -300,13 +300,13 @@ int main(int argc, char *argv[]) {
   do {
     printf("\nEnter Win Amount Between 3 and 6 : ");
     scanf(" %d", &winAmount);
-  } while ( winAmount < 3 && winAmount > 6 );
+  } while ( winAmount < 3 && winAmount > 6 && winAmount <= BOARD_SIZE );
 
   // Single Array allocating
-  fieldArr = malloc(BOARD_SIZE * sizeof(char*));
-  for (int i = 0; i < BOARD_SIZE; i++) {
+  fieldArr = malloc(BOARD_SIZE+2 * sizeof(char*));
+  for (int i = 0; i < BOARD_SIZE+3; i++) {
     // Allocate an array inside the array
-    fieldArr[i] = malloc(BOARD_SIZE * sizeof(char));
+    fieldArr[i] = malloc(BOARD_SIZE+4 * sizeof(char));
   }
 
   // Initilize Array fields with a symbol
