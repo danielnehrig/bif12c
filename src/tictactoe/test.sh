@@ -26,25 +26,25 @@ FAILED=0
 TESTS=4
 
 printf "$ARROW Starting Tests for 3x3w3\n"
-./tictactoe < ./tests/3x3w3COL.txt >& /dev/null
+./tictactoe < ./tests/3x3w3COL.txt > /dev/null 2>&1
 if [ $? -eq 139 ];
 then
   printf "$ARROW $ERROR Error Segfaulted\n"
   ((FAILED++))
 fi
-./tictactoe < ./tests/3x3w3ROW.txt >& /dev/null
+./tictactoe < ./tests/3x3w3ROW.txt > /dev/null 2>&1
 if [ $? -eq 139 ];
 then
   printf "$ARROW $ERROR Error Segfaulted\n"
   ((FAILED++))
 fi
-./tictactoe < ./tests/3x3w3DIAG_LR.txt >& /dev/null
+./tictactoe < ./tests/3x3w3DIAG_LR.txt > /dev/null 2>&1
 if [ $? -eq 139 ];
 then
   printf "$ARROW $ERROR Error Segfaulted\n"
   ((FAILED++))
 fi
-./tictactoe < ./tests/3x3w3DIAG_RL.txt >& /dev/null
+./tictactoe < ./tests/3x3w3DIAG_RL.txt > /dev/null 2>&1
 if [ $? -eq 139 ];
 then
   printf "$ARROW $ERROR Error Segfaulted\n"
