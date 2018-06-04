@@ -75,22 +75,28 @@ void place(int **player,char **fieldArr,int *posX,int *posY,int BOARD_SIZE,int *
 int winValidation(char **fieldArr, int *turns, int BOARD_SIZE, int winAmount) {
   int winner = 0;
   int countDiag = 0;
-  char marker;
+  char marker, markerK;
 
   if (*turns > (winAmount * 2) - 2) {
     // row check
     for (int i = 0; i < BOARD_SIZE-1; i++) {
-      marker = fieldArr[i][0];
-      for (int k = 1; k < BOARD_SIZE-1; k++) {
+      for (int k = 0; k < BOARD_SIZE-1; k++) {
+        marker = fieldArr[i][k];
+        markerK = fieldArr[i][k+1];
+        if (marker != markerK) {
+          break;
+        }
+
         if (marker != '-' && (marker != PLAYER1_MOV_SYM && marker != PLAYER2_MOV_SYM)) {
-          if (marker == fieldArr[i][k]) {
+          if (marker == markerK) {
             countDiag++;
-            if (countDiag == winAmount-1 && marker == PLAYER1_SYM) {
-              winner = 1;
-              printf("\nROW");
-            } else {
-              winner = 2;
-              printf("\nROW");
+            if (countDiag == winAmount-1) {
+              printf("\nROW\n");
+              if (marker == PLAYER1_SYM) {
+                winner = 1;
+              } else if (marker == PLAYER2_SYM) {
+                winner = 2;
+              }
             }
           }
         }
@@ -101,17 +107,23 @@ int winValidation(char **fieldArr, int *turns, int BOARD_SIZE, int winAmount) {
     if (winner == 0) {
       countDiag = 0;
       for (int i = 0; i < BOARD_SIZE-1; i++) {
-        marker = fieldArr[0][i];
-        for (int k = 1; k < BOARD_SIZE-1; k++) {
+        for (int k = 0; k < BOARD_SIZE-1; k++) {
+          marker = fieldArr[k][i];
+          markerK = fieldArr[k+1][i];
+          if (marker != markerK) {
+            break;
+          }
+
           if (marker != '-' && (marker != PLAYER1_MOV_SYM && marker != PLAYER2_MOV_SYM)) {
-            if (marker == fieldArr[k][i]) {
+            if (marker == markerK) {
               countDiag++;
-              if (countDiag == winAmount-1 && marker == PLAYER1_SYM) {
-                winner = 1;
-                printf("\nColumn");
-              } else {
-                winner = 2;
-                printf("\nColumn");
+              if (countDiag == winAmount-1) {
+                printf("\nColumn\n");
+                if (marker == PLAYER1_SYM) {
+                  winner = 1;
+                } else if (marker == PLAYER2_SYM) {
+                  winner = 2;
+                }
               }
             }
           }
@@ -326,10 +338,10 @@ int main(int argc, char *argv[]) {
   } while (winAmountValidation(winAmount,BOARD_SIZE));
 
   // Single Array allocating
-  fieldArr = malloc(BOARD_SIZE+2 * sizeof(char*));
-  for (int i = 0; i < BOARD_SIZE+3; i++) {
+  fieldArr = malloc(BOARD_SIZE * sizeof(char*));
+  for (int i = 0; i < BOARD_SIZE; i++) {
     // Allocate an array inside the array
-    fieldArr[i] = malloc(BOARD_SIZE+4 * sizeof(char));
+    fieldArr[i] = malloc(BOARD_SIZE * sizeof(char));
   }
 
   // Initilize Array fields with a symbol
