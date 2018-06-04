@@ -4,12 +4,11 @@ os:
 sudo: false
 script:
   - "cd ./src"
-  - "gcc -std=c99 -coverage ./calc/calc.c -o ./calc/calc"
-  - "gcc -std=c99 -coverage ./auswahl/auswahl.c -o ./auswahl/auswahl"
-  - "gcc -std=c99 -coverage ./figure/figure.c -o ./figure/figure"
-  - "gcc -std=c99 -coverage ./lotto/lotto.c -o ./lotto/lotto"
-  - "gcc -std=c99 -coverage ./readfile/readfile.c -o ./readfile/readfile"
+  - "gcc ./calc/calc.c -o ./calc/calc"
+  - "gcc ./auswahl/auswahl.c -o ./auswahl/auswahl"
+  - "gcc ./figure/figure.c -o ./figure/figure"
+  - "gcc ./lotto/lotto.c -o ./lotto/lotto"
+  - "gcc ./readfile/readfile.c -o ./readfile/readfile"
   - "cd ./tictactoe"
   - "make"
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  - "make test"
