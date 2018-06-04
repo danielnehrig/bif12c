@@ -136,14 +136,19 @@ int winValidation(char **fieldArr, int *turns, int BOARD_SIZE, int winAmount) {
       countDiag = 0;
       for (int i = 0; i < BOARD_SIZE; i++) {
         marker = fieldArr[i][i];
+        markerK = fieldArr[i+1][i+1];
+        if (marker != markerK) {
+          break;
+        }
+
         if (marker != '-' && (marker != PLAYER1_MOV_SYM && marker != PLAYER2_MOV_SYM)) {
-          if (fieldArr[i+1][i+1] == marker) {
+          if (marker == markerK) {
             countDiag++;
             if (countDiag == BOARD_SIZE-1) {
               printf("Diag LR Win\n");
               if (marker == PLAYER1_SYM) {
                 winner = 1;
-              } else {
+              } else if (marker == PLAYER2_SYM) {
                 winner = 2;
               }
             }
@@ -158,14 +163,19 @@ int winValidation(char **fieldArr, int *turns, int BOARD_SIZE, int winAmount) {
       countDiag = 0;
       for (int k = 0; k < BOARD_SIZE; i--, k++) {
         marker = fieldArr[k][i];
+        markerK = fieldArr[k+1][i-1];
+        if (marker != markerK) {
+          break;
+        }
+
         if (marker != '-' && (marker != PLAYER1_MOV_SYM && marker != PLAYER2_MOV_SYM)) {
-          if (fieldArr[k+1][i-1] == marker) {
+          if (marker == markerK) {
             countDiag++;
             if (countDiag == BOARD_SIZE-1) {
               printf("Diag RL Win\n");
               if (marker == PLAYER1_SYM) {
                 winner = 1;
-              } else {
+              } else if (marker == PLAYER2_SYM) {
                 winner = 2;
               }
             }
@@ -230,7 +240,6 @@ void move(char **fieldArr, char choose, int *posX, int *posY, int *player, int *
 
   fieldArr[*posY][*posX] = *temp;
 
-  // Note auslagern in andere funktion
   if(*posX < 0) {
       *posX = BOARD_SIZE-1;
       *temp = fieldArr[*posY][*posX];
@@ -310,10 +319,10 @@ int main(int argc, char *argv[]) {
   } while (winAmountValidation(winAmount,BOARD_SIZE));
 
   // Single Array allocating
-  fieldArr = malloc(BOARD_SIZE+2 * sizeof(char*));
-  for (int i = 0; i < BOARD_SIZE+3; i++) {
+  fieldArr = malloc(BOARD_SIZE * sizeof(char*));
+  for (int i = 0; i < BOARD_SIZE; i++) {
     // Allocate an array inside the array
-    fieldArr[i] = malloc(BOARD_SIZE+4 * sizeof(char));
+    fieldArr[i] = malloc(BOARD_SIZE * sizeof(char));
   }
 
   // Initilize Array fields with a symbol
@@ -334,6 +343,7 @@ int main(int argc, char *argv[]) {
   // Re render the field on loop
   // check player state
   // ask for options movement or placeing
+  // do various validations (correct option choosed and can place player sym at array index)
   // clear and do the move
   // then check for a winner
   do {
@@ -372,5 +382,6 @@ int main(int argc, char *argv[]) {
   }
   free(fieldArr);
 
+  // Exit Code 0
   return EXIT_SUCCESS;
 }
