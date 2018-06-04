@@ -9,6 +9,9 @@ DEPS = func.h
 prog: $(OBJ)
 	$(CC) -Wall -g -o prog $(OBJ)
 
+test:
+	./test.sh
+
 clean:
 	rm prog
 	rm *.o
