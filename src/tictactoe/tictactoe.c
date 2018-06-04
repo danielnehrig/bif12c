@@ -338,10 +338,10 @@ int main(int argc, char *argv[]) {
   } while (winAmountValidation(winAmount,BOARD_SIZE));
 
   // Single Array allocating
-  fieldArr = malloc(BOARD_SIZE * sizeof(char*));
-  for (int i = 0; i < BOARD_SIZE; i++) {
+  fieldArr = malloc(BOARD_SIZE+2 * sizeof(char*));
+  for (int i = 0; i < BOARD_SIZE+3; i++) {
     // Allocate an array inside the array
-    fieldArr[i] = malloc(BOARD_SIZE * sizeof(char));
+    fieldArr[i] = malloc(BOARD_SIZE+4 * sizeof(char));
   }
 
   // Initilize Array fields with a symbol
