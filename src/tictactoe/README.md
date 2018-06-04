@@ -7,5 +7,5 @@ MAKE
 make
 
 ## Commands
-make clean
-make test
+- make clean
+- make test
