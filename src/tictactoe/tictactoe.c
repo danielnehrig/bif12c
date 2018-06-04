@@ -202,54 +202,53 @@ void fieldRender(char **fieldArr,int BOARD_SIZE) {
  * @param {int} turns - Amount of Turns done total by all players (a turn = a placed mark)
  * @param {int} BOARD_SIZE - Game Field Size
  */
-char temp = '-';
-void move(char **fieldArr, char choose, int *posX, int *posY, int *player, int *turns, int BOARD_SIZE) { 
-  fieldArr[*posY][*posX] = temp;
+void move(char **fieldArr, char choose, int *posX, int *posY, int *player, int *turns, int BOARD_SIZE, char *temp) { 
+  fieldArr[*posY][*posX] = *temp;
 
   switch(choose) {
     case 'w': 
               (*posY)--;
-              temp = fieldArr[*posY][*posX];
+              *temp = fieldArr[*posY][*posX];
               break;
     case 'a': 
               (*posX)--;
-              temp = fieldArr[*posY][*posX];
+              *temp = fieldArr[*posY][*posX];
               break;
     case 's': 
               (*posY)++;
-              temp = fieldArr[*posY][*posX];
+              *temp = fieldArr[*posY][*posX];
               break;
     case 'd': 
               (*posX)++;
-              temp = fieldArr[*posY][*posX];
+              *temp = fieldArr[*posY][*posX];
               break;
     case 'p': 
               place(&player,fieldArr,posX,posY,BOARD_SIZE,turns);
-              temp = fieldArr[*posY][*posX];
+              *temp = fieldArr[*posY][*posX];
               break;
   }
 
-  fieldArr[*posY][*posX] = temp;
+  fieldArr[*posY][*posX] = *temp;
 
   // Note auslagern in andere funktion
   if(*posX < 0) {
       *posX = BOARD_SIZE-1;
-      temp = fieldArr[*posY][*posX];
+      *temp = fieldArr[*posY][*posX];
   }
 
   if(*posX > BOARD_SIZE-1) {
       *posX = 0;
-      temp = fieldArr[*posY][*posX];
+      *temp = fieldArr[*posY][*posX];
   }
 
   if(*posY < 0) {
       *posY = BOARD_SIZE-1;
-      temp = fieldArr[*posY][*posX];
+      *temp = fieldArr[*posY][*posX];
   }
 
   if(*posY > BOARD_SIZE-1) {
       *posY = 0;
-      temp = fieldArr[*posY][*posX];
+      *temp = fieldArr[*posY][*posX];
   }
 
   if (choose != 'p') {
@@ -289,6 +288,7 @@ int main(int argc, char *argv[]) {
   // Goal is no Global Vars
   srand(time(NULL));
   int BOARD_SIZE = 3;
+  char temp = '-';
   char **fieldArr;
   char choose;
   int winAmount = 3;
@@ -359,7 +359,7 @@ int main(int argc, char *argv[]) {
     } while (chooseValidation(choose));
 
     clrscr();
-    move(fieldArr, choose, &posX, &posY, &player, &turns, BOARD_SIZE);
+    move(fieldArr, choose, &posX, &posY, &player, &turns, BOARD_SIZE, &temp);
     winner = winValidation(fieldArr, &turns, BOARD_SIZE, winAmount);
   } while (choose != 'x' && winner == 0 && turns < (BOARD_SIZE * BOARD_SIZE));
 
