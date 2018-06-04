@@ -1,17 +1,12 @@
-CC =gcc
-OBJ =tictactoe.o validation.o logic.o
-C =tictactoe.c validation.c logic.c
-DEPS = func.h
+CC=gcc
+C=tictactoe.c
 
-%.o: %.c $(DEPS)
-	$(CC) -Wall -c -o $@ $<
-
-prog: $(OBJ)
-	$(CC) -Wall -g -o prog $(OBJ)
+prog: $(C)
+	$(CC) -Wall -g -o tictactoe $(C)
 
 test:
 	./test.sh
 
 clean:
-	rm prog
-	rm *.o
+	rm tictactoe
+	rm -rf ./tictactoe.dSYM/
