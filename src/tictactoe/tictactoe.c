@@ -25,6 +25,7 @@ int main(int argc, char *argv[]) {
   fieldArr[0][0] = starting;
 
   do {
+    clrscr();
     printf("\n********************\n");
     printf("** TicTacToe Game **\n");
     printf("********************\n");
@@ -46,7 +47,6 @@ int main(int argc, char *argv[]) {
       scanf(" %c", &choose);
     } while (chooseValidation(choose));
 
-    clrscr();
     move(*fieldArr, choose, &posX, &posY, &player, &turns);
     winner = winValidation(fieldArr, &turns);
   } while (choose != 'x' && winner == 0 && turns < (BOARD_SIZE * BOARD_SIZE));
