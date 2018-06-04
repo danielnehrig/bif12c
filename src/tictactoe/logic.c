@@ -26,85 +26,48 @@ void fieldRender(char fieldArr[3][3]) {
  */
 char temp = '-';
 void move(char *fieldArr, char choose, int *posX, int *posY, int *player, int *turns) { 
+  *(fieldArr + *posY * BOARD_SIZE + *posX) = temp;
 
   switch(choose) {
-    case 'w': *(fieldArr + *posY * BOARD_SIZE + *posX) = temp;
+    case 'w': 
               (*posY)--;
               temp = *(fieldArr + *posY * BOARD_SIZE + *posX);
-              if (*player == 1) {
-                *(fieldArr + *posY * BOARD_SIZE + *posX) = PLAYER1_MOV_SYM;
-              } else {
-                *(fieldArr + *posY * BOARD_SIZE + *posX) = PLAYER2_MOV_SYM;
-              }
               break;
-    case 'a': *(fieldArr + *posY * BOARD_SIZE + *posX) = temp;
+    case 'a': 
               (*posX)--;
               temp = *(fieldArr + *posY * BOARD_SIZE + *posX);
-              if (*player == 1) {
-                *(fieldArr + *posY * BOARD_SIZE + *posX) = PLAYER1_MOV_SYM;
-              } else {
-                *(fieldArr + *posY * BOARD_SIZE + *posX) = PLAYER2_MOV_SYM;
-              }
               break;
-    case 's': *(fieldArr + *posY * BOARD_SIZE + *posX) = temp;
+    case 's': 
               (*posY)++;
               temp = *(fieldArr + *posY * BOARD_SIZE + *posX);
-              if (*player == 1) {
-                *(fieldArr + *posY * BOARD_SIZE + *posX) = PLAYER1_MOV_SYM;
-              } else {
-                *(fieldArr + *posY * BOARD_SIZE + *posX) = PLAYER2_MOV_SYM;
-              }
               break;
-    case 'd': *(fieldArr + *posY * BOARD_SIZE + *posX) = temp;
+    case 'd': 
               (*posX)++;
               temp = *(fieldArr + *posY * BOARD_SIZE + *posX);
-              if (*player == 1) {
-                *(fieldArr + *posY * BOARD_SIZE + *posX) = PLAYER1_MOV_SYM;
-              } else {
-                *(fieldArr + *posY * BOARD_SIZE + *posX) = PLAYER2_MOV_SYM;
-              }
               break;
-    case 'p': *(fieldArr + *posY * BOARD_SIZE + *posX) = temp;
-              place(&player,fieldArr,posX,posY); (*turns)++;
+    case 'p': 
+              place(&player,fieldArr,posX,posY,turns);
               temp = *(fieldArr + *posY * BOARD_SIZE + *posX);
               break;
   }
 
-  // Note Make a function out of this
+  *(fieldArr + *posY * BOARD_SIZE + *posX) = temp;
+
   if(*posX < 0) {
-    *(fieldArr + *posY * BOARD_SIZE + *posX) = temp;
     *posX = BOARD_SIZE-1;
-    temp = *(fieldArr + *posY * BOARD_SIZE + *posX);
-    if (*player == 1) {
-      *(fieldArr + *posY * BOARD_SIZE + *posX) = PLAYER1_MOV_SYM;
-    } else {
-      *(fieldArr + *posY * BOARD_SIZE + *posX) = PLAYER2_MOV_SYM;
-    }
   }
   if(*posX > BOARD_SIZE-1) {
-    *(fieldArr + *posY * BOARD_SIZE + *posX) = temp;
     *posX = 0;
-    temp = *(fieldArr + *posY * BOARD_SIZE + *posX);
-    if (*player == 1) {
-      *(fieldArr + *posY * BOARD_SIZE + *posX) = PLAYER1_MOV_SYM;
-    } else {
-      *(fieldArr + *posY * BOARD_SIZE + *posX) = PLAYER2_MOV_SYM;
-    }
   }
   if(*posY < 0) {
-    *(fieldArr + *posY * BOARD_SIZE + *posX) = temp;
     *posY = BOARD_SIZE-1;
-    temp = *(fieldArr + *posY * BOARD_SIZE + *posX);
-    if (*player == 1) {
-      *(fieldArr + *posY * BOARD_SIZE + *posX) = PLAYER1_MOV_SYM;
-    } else {
-      *(fieldArr + *posY * BOARD_SIZE + *posX) = PLAYER2_MOV_SYM;
-    }
   }
   if(*posY > BOARD_SIZE-1) {
-    *(fieldArr + *posY * BOARD_SIZE + *posX) = temp;
     *posY = 0;
-    temp = *(fieldArr + *posY * BOARD_SIZE + *posX);
+  }
+  temp = *(fieldArr + *posY * BOARD_SIZE + *posX);
+
+  if (choose != 'p') {
     if (*player == 1) {
       *(fieldArr + *posY * BOARD_SIZE + *posX) = PLAYER1_MOV_SYM;
     } else {

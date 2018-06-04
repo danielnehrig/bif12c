@@ -44,13 +44,15 @@ bool placeValidation(int ***player,char *fieldArr,int *posX,int *posY) {
  * @param {int} posX
  * @param {int} posY
  */
-void place(int **player,char *fieldArr,int *posX,int *posY) {
+void place(int **player,char *fieldArr,int *posX,int *posY,int *turns) {
   bool placed = false;
   placed = placeValidation(&player,fieldArr,posX,posY);
 
   if (placed && **player == 1) {
+    (*turns)++;
     (**player) = 2;
   } else if (placed && **player == 2) {
+    (*turns)++;
     (**player) = 1;
   } else {
     printf("\nNo player change %d", **player);
