@@ -4,11 +4,11 @@ os:
 sudo: false
 script:
   - "cd ./src"
-  - "gcc ./calc/calc.c -o ./calc/calc"
-  - "gcc ./auswahl/auswahl.c -o ./auswahl/auswahl"
-  - "gcc ./figure/figure.c -o ./figure/figure"
-  - "gcc ./lotto/lotto.c -o ./lotto/lotto"
-  - "gcc ./readfile/readfile.c -o ./readfile/readfile"
+  - "gcc --std=c99 ./calc/calc.c -o ./calc/calc"
+  - "gcc --std=c99 ./auswahl/auswahl.c -o ./auswahl/auswahl"
+  - "gcc --std=c99 ./figure/figure.c -o ./figure/figure"
+  - "gcc --std=c99 ./lotto/lotto.c -o ./lotto/lotto"
+  - "gcc --std=c99 ./readfile/readfile.c -o ./readfile/readfile"
   - "cd ./tictactoe"
   - "make"
   - "make test"

@@ -4,10 +4,10 @@ C =tictactoe.c validation.c logic.c
 DEPS = func.h
 
 %.o: %.c $(DEPS)
-	$(CC) -Wall -c -o $@ $<
+	$(CC) --std=c99 -Wall -c -o $@ $<
 
 prog: $(OBJ)
-	$(CC) -Wall -g -o tictactoe $(OBJ)
+	$(CC) --std=c99 -Wall -g -o tictactoe $(OBJ)
 
 test:
 	./test.sh
