@@ -7,7 +7,12 @@ DEPS = func.h
 	$(CC) -Wall -c -o $@ $<
 
 prog: $(OBJ)
-	$(CC) -Wall -g -o prog $(OBJ)
+	$(CC) -Wall -g -o tictactoe $(OBJ)
+
+test:
+	./test.sh
 
 clean:
 	rm *.o
+	rm tictactoe
+	rm -rf ./tictactoe.dYSM/
