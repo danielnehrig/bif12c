@@ -19,11 +19,11 @@ bool chooseValidation(char choose) {
 
 /*
  * Validates if the current index holds a Char which isn't supposed to be overwritten on placeing
- * @param {int} ***player the given player which currently is at turn
- * @param {char} *fieldArr the array which holds the game field
- * @param {int} *posX X axis
- * @param {int} *posY Y axis
- * @param {int} BOARD_SIZE
+ * @param {int} ***player - the given player which currently is at turn
+ * @param {char} *fieldArr - the array which holds the game field
+ * @param {int} *posX - X axis
+ * @param {int} *posY - Y axis
+ * @param {int} BOARD_SIZE - Game Field Size
  */
 bool placeValidation(int ***player,char **fieldArr,int *posX,int *posY,int BOARD_SIZE) {
   if (***player == 1 && (fieldArr[*posY][*posX] != PLAYER2_SYM && fieldArr[*posY][*posX] != PLAYER1_SYM)) {
@@ -42,12 +42,12 @@ bool placeValidation(int ***player,char **fieldArr,int *posX,int *posY,int BOARD
 
 /*
  * Validates if Object can be placed and if current player turn is over
- * @param {int} player
- * @param {char} fieldArr
- * @param {int} posX
- * @param {int} posY
- * @param {int} BOARD_SIZE
- * @param {int} turns
+ * @param {int} player - Player hold 1 or 2
+ * @param {char} fieldArr - Game Field Array
+ * @param {int} posX - X Axis
+ * @param {int} posY - Y Axis
+ * @param {int} BOARD_SIZE - Game Field Size
+ * @param {int} turns - the amount of Turns done (player changes after a player placed his mark)
  */
 void place(int **player,char **fieldArr,int *posX,int *posY,int BOARD_SIZE,int *turns) {
   bool placed = false;
@@ -67,10 +67,10 @@ void place(int **player,char **fieldArr,int *posX,int *posY,int BOARD_SIZE,int *
 
 /*
  * Validates the winner of the Game
- * @param {char} fieldArr
- * @param {int} turns
- * @param {int} BOARD_SIZE
- * @param {int} winAmount
+ * @param {char} fieldArr - Game Field Array
+ * @param {int} turns - the amount of Turns done (player changes after a player placed his mark)
+ * @param {int} BOARD_SIZE - Game Field Size
+ * @param {int} winAmount - Amount needed to win the Game x from x in a row/column/diag
  */
 int winValidation(char **fieldArr, int *turns, int BOARD_SIZE, int winAmount) {
   int winner = 0;
@@ -180,8 +180,8 @@ int winValidation(char **fieldArr, int *turns, int BOARD_SIZE, int winAmount) {
 
 /*
  * Render the Game Field
- * @param {char} fieldArr
- * @param {int} BOARD_SIZE
+ * @param {char} fieldArr - Game Field Array
+ * @param {int} BOARD_SIZE - Game Field Size
  */
 void fieldRender(char **fieldArr,int BOARD_SIZE) {
   for (int i=0; i < BOARD_SIZE; i++) {
@@ -194,95 +194,65 @@ void fieldRender(char **fieldArr,int BOARD_SIZE) {
 
 /*
  * Move the Player Position or do your placement
- * @param {char} fieldArr
- * @param {char} choose
- * @param {int} posX
- * @param {int} posY
- * @param {int} player
- * @param {int} turns
- * @param {int} BOARD_SIZE
+ * @param {char} fieldArr - Game Field Array
+ * @param {char} choose - Selection what kind of movement placement etc
+ * @param {int} posX - X Axis
+ * @param {int} posY - Y Axis
+ * @param {int} player - player holds 1 or 2
+ * @param {int} turns - Amount of Turns done total by all players (a turn = a placed mark)
+ * @param {int} BOARD_SIZE - Game Field Size
  */
 char temp = '-';
 void move(char **fieldArr, char choose, int *posX, int *posY, int *player, int *turns, int BOARD_SIZE) { 
+  fieldArr[*posY][*posX] = temp;
 
   switch(choose) {
-    case 'w': fieldArr[*posY][*posX] = temp;
+    case 'w': 
               (*posY)--;
               temp = fieldArr[*posY][*posX];
-              if (*player == 1) {
-                fieldArr[*posY][*posX] = PLAYER1_MOV_SYM;
-              } else {
-                fieldArr[*posY][*posX] = PLAYER2_MOV_SYM;
-              }
               break;
-    case 'a': fieldArr[*posY][*posX] = temp;
+    case 'a': 
               (*posX)--;
               temp = fieldArr[*posY][*posX];
-              if (*player == 1) {
-                fieldArr[*posY][*posX] = PLAYER1_MOV_SYM;
-              } else {
-                fieldArr[*posY][*posX] = PLAYER2_MOV_SYM;
-              }
               break;
-    case 's': fieldArr[*posY][*posX] = temp;
+    case 's': 
               (*posY)++;
               temp = fieldArr[*posY][*posX];
-              if (*player == 1) {
-                fieldArr[*posY][*posX] = PLAYER1_MOV_SYM;
-              } else {
-                fieldArr[*posY][*posX] = PLAYER2_MOV_SYM;
-              }
               break;
-    case 'd': fieldArr[*posY][*posX] = temp;
+    case 'd': 
               (*posX)++;
               temp = fieldArr[*posY][*posX];
-              if (*player == 1) {
-                fieldArr[*posY][*posX] = PLAYER1_MOV_SYM;
-              } else {
-                fieldArr[*posY][*posX] = PLAYER2_MOV_SYM;
-              }
               break;
-    case 'p': fieldArr[*posY][*posX] = temp;
+    case 'p': 
               place(&player,fieldArr,posX,posY,BOARD_SIZE,turns);
               temp = fieldArr[*posY][*posX];
               break;
   }
 
+  fieldArr[*posY][*posX] = temp;
+
   // Note auslagern in andere funktion
   if(*posX < 0) {
-      fieldArr[*posY][*posX] = temp;
       *posX = BOARD_SIZE-1;
       temp = fieldArr[*posY][*posX];
-      if (*player == 1) {
-        fieldArr[*posY][*posX] = PLAYER1_MOV_SYM;
-      } else {
-        fieldArr[*posY][*posX] = PLAYER2_MOV_SYM;
-      }
   }
+
   if(*posX > BOARD_SIZE-1) {
-      fieldArr[*posY][*posX] = temp;
       *posX = 0;
       temp = fieldArr[*posY][*posX];
-      if (*player == 1) {
-        fieldArr[*posY][*posX] = PLAYER1_MOV_SYM;
-      } else {
-        fieldArr[*posY][*posX] = PLAYER2_MOV_SYM;
-      }
   }
+
   if(*posY < 0) {
-      fieldArr[*posY][*posX] = temp;
       *posY = BOARD_SIZE-1;
       temp = fieldArr[*posY][*posX];
-      if (*player == 1) {
-        fieldArr[*posY][*posX] = PLAYER1_MOV_SYM;
-      } else {
-        fieldArr[*posY][*posX] = PLAYER2_MOV_SYM;
-      }
   }
+
   if(*posY > BOARD_SIZE-1) {
-      fieldArr[*posY][*posX] = temp;
       *posY = 0;
       temp = fieldArr[*posY][*posX];
+  }
+
+  if (choose != 'p') {
       if (*player == 1) {
         fieldArr[*posY][*posX] = PLAYER1_MOV_SYM;
       } else {
@@ -293,8 +263,8 @@ void move(char **fieldArr, char choose, int *posX, int *posY, int *player, int *
 
 /*
  * Validates if the entered winAmount is correct
- * @param {int} winAmount
- * @param {int} BOARD_SIZE
+ * @param {int} winAmount - The Amount of marks in a row/column/diag to win the game
+ * @param {int} BOARD_SIZE - Game Field Size X x X
  */
 bool winAmountValidation(int winAmount, int BOARD_SIZE) {
   if ((winAmount < 3 || winAmount > 6) && winAmount > BOARD_SIZE) {
@@ -305,7 +275,7 @@ bool winAmountValidation(int winAmount, int BOARD_SIZE) {
 
 /*
  * Validates if the entered BOARD_SIZE is correct
- * @param {int} BOARD_SIZE
+ * @param {int} BOARD_SIZE - Game Field Size X x X
  */
 bool boardAmountValidation(int BOARD_SIZE) {
   if ( BOARD_SIZE < 3 || BOARD_SIZE > 20) {
@@ -315,6 +285,8 @@ bool boardAmountValidation(int BOARD_SIZE) {
 }
 
 int main(int argc, char *argv[]) {
+  // Declare and Init Vars
+  // Goal is no Global Vars
   srand(time(NULL));
   int BOARD_SIZE = 3;
   char **fieldArr;
@@ -351,11 +323,19 @@ int main(int argc, char *argv[]) {
     }
   }
 
+  // Coinflip random Player Starts
+  // And Init Array position with the player Symbol
   coinflip = (rand() % 2) + 1;
   player = coinflip;
   char starting = (player == 1) ? PLAYER1_MOV_SYM: PLAYER2_MOV_SYM;
   fieldArr[0][0] = starting;
 
+  // Main Game Loop function
+  // Re render the field on loop
+  // check player state
+  // ask for options movement or placeing
+  // clear and do the move
+  // then check for a winner
   do {
     printf("\n********************\n");
     printf("** TicTacToe Game **\n");
@@ -383,8 +363,10 @@ int main(int argc, char *argv[]) {
     winner = winValidation(fieldArr, &turns, BOARD_SIZE, winAmount);
   } while (choose != 'x' && winner == 0 && turns < (BOARD_SIZE * BOARD_SIZE));
 
+  // Ternary winner detection
   (winner != 0) ? printf("The Winner is Player %d\n", winner) : printf("No Winner in this Game\n");
 
+  // Clear Field Arrays
   for (int i = 0; i < BOARD_SIZE; i++) {
     free(fieldArr[i]);
   }
