@@ -7,6 +7,7 @@
 /*
  * Validates if the Current Choosen Letter is applicable
  * @param {char} choose - The var which holds the letter which got choosen
+ * @return {bool}
  */
 bool chooseValidation(char choose) {
   if (choose != 'a' && choose != 'w' && choose != 's' && choose != 'd' && choose != 'p' && choose != 'x') {
@@ -24,6 +25,7 @@ bool chooseValidation(char choose) {
  * @param {int} *posX - X axis
  * @param {int} *posY - Y axis
  * @param {int} BOARD_SIZE - Game Field Size
+ * @return {bool}
  */
 bool placeValidation(int ***player,char **fieldArr,int *posX,int *posY,int BOARD_SIZE) {
   if (***player == 1 && (fieldArr[*posY][*posX] != PLAYER2_SYM && fieldArr[*posY][*posX] != PLAYER1_SYM)) {
@@ -48,6 +50,7 @@ bool placeValidation(int ***player,char **fieldArr,int *posX,int *posY,int BOARD
  * @param {int} posY - Y Axis
  * @param {int} BOARD_SIZE - Game Field Size
  * @param {int} turns - the amount of Turns done (player changes after a player placed his mark)
+ * @return {void}
  */
 void place(int **player,char **fieldArr,int *posX,int *posY,int BOARD_SIZE,int *turns) {
   bool placed = false;
@@ -71,6 +74,7 @@ void place(int **player,char **fieldArr,int *posX,int *posY,int BOARD_SIZE,int *
  * @param {int} turns - the amount of Turns done (player changes after a player placed his mark)
  * @param {int} BOARD_SIZE - Game Field Size
  * @param {int} winAmount - Amount needed to win the Game x from x in a row/column/diag
+ * @return {int} winner - 1 or 2
  */
 int winValidation(char **fieldArr, int *turns, int BOARD_SIZE, int winAmount) {
   int winner = 0;
@@ -192,6 +196,7 @@ int winValidation(char **fieldArr, int *turns, int BOARD_SIZE, int winAmount) {
  * Render the Game Field
  * @param {char} fieldArr - Game Field Array
  * @param {int} BOARD_SIZE - Game Field Size
+ * @return void
  */
 void fieldRender(char **fieldArr,int BOARD_SIZE) {
   for (int i=0; i < BOARD_SIZE; i++) {
@@ -211,6 +216,7 @@ void fieldRender(char **fieldArr,int BOARD_SIZE) {
  * @param {int} player - player holds 1 or 2
  * @param {int} turns - Amount of Turns done total by all players (a turn = a placed mark)
  * @param {int} BOARD_SIZE - Game Field Size
+ * @return void
  */
 void move(char **fieldArr, char choose, int *posX, int *posY, int *player, int *turns, int BOARD_SIZE, char *temp) { 
   fieldArr[*posY][*posX] = *temp;
@@ -273,6 +279,7 @@ void move(char **fieldArr, char choose, int *posX, int *posY, int *player, int *
  * Validates if the entered winAmount is correct
  * @param {int} winAmount - The Amount of marks in a row/column/diag to win the game
  * @param {int} BOARD_SIZE - Game Field Size X x X
+ * @return {bool}
  */
 bool winAmountValidation(int winAmount, int BOARD_SIZE) {
   if ((winAmount < 3 || winAmount > 6) && winAmount > BOARD_SIZE) {
@@ -284,6 +291,7 @@ bool winAmountValidation(int winAmount, int BOARD_SIZE) {
 /*
  * Validates if the entered BOARD_SIZE is correct
  * @param {int} BOARD_SIZE - Game Field Size X x X
+ * @return {bool}
  */
 bool boardAmountValidation(int BOARD_SIZE) {
   if ( BOARD_SIZE < 3 || BOARD_SIZE > 20) {
