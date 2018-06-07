@@ -303,17 +303,17 @@ bool boardAmountValidation(int BOARD_SIZE) {
 int main(int argc, char *argv[]) {
   // Declare and Init Vars
   // Goal is no Global Vars
-  srand(time(NULL));
-  int BOARD_SIZE = 3;
-  char temp = '-';
-  char **fieldArr;
-  char choose;
-  int winAmount = 3;
-  int posX = 0, posY = 0;
-  int player = 1;
-  int turns = 0;
-  int winner = 0;
-  int coinflip = 0;
+  srand(time(NULL));              // Random Time on Runtime needed for random player starts
+  int BOARD_SIZE = 3;             // Pre initilized BOARD_SIZE
+  char temp = '-';                // temp char this variable is a buffer place for a stored char when moving on the board
+  char **fieldArr;                // Pointer to char array in memory
+  char choose;                    // var which holds the choosen letter so you can move on the board
+  int winAmount = 3;              // Default initilized winAmount
+  int posX = 0, posY = 0;         // posX posY buffers which hold the index value of the x and y axis on the board
+  int player = 1;                 // default player 1 starts coinflip will overwrite this
+  int turns = 0;                  // how many turns have been done in the game so the winValidation isn't triggered every time
+  int winner = 0;                 // who won the game
+  int coinflip = 0;               // who will start the first turn
 
   // Dynamiclly allocate memory 2d array of chars
   do {
