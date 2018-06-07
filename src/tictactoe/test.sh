@@ -26,25 +26,43 @@ FAILED=0
 TESTS=4
 
 printf "$ARROW Starting Tests for 3x3w3\n"
+printf "$ARROW ${GREEN}Testing COL win Validation\n"
 ./tictactoe < ./tests/3x3w3COL.txt > /dev/null 2>&1
 if [ $? -eq 139 ];
 then
   printf "$ARROW $ERROR Error Segfaulted\n"
   ((FAILED++))
 fi
+printf "$ARROW ${GREEN}Testing ROW win Validation\n"
 ./tictactoe < ./tests/3x3w3ROW.txt > /dev/null 2>&1
 if [ $? -eq 139 ];
 then
   printf "$ARROW $ERROR Error Segfaulted\n"
   ((FAILED++))
 fi
+printf "$ARROW ${GREEN}Testing Left to Right Win Validation\n"
 ./tictactoe < ./tests/3x3w3DIAG_LR.txt > /dev/null 2>&1
 if [ $? -eq 139 ];
 then
   printf "$ARROW $ERROR Error Segfaulted\n"
   ((FAILED++))
 fi
+printf "$ARROW ${GREEN}Testing Right to Left Win Validation\n"
 ./tictactoe < ./tests/3x3w3DIAG_RL.txt > /dev/null 2>&1
+if [ $? -eq 139 ];
+then
+  printf "$ARROW $ERROR Error Segfaulted\n"
+  ((FAILED++))
+fi
+printf "$ARROW ${GREEN}Testing NoWinner\n"
+./tictactoe < ./tests/3x3w3NoWinner.txt > /dev/null 2>&1
+if [ $? -eq 139 ];
+then
+  printf "$ARROW $ERROR Error Segfaulted\n"
+  ((FAILED++))
+fi
+printf "$ARROW ${GREEN}Testing Validation and Options\n"
+./tictactoe < ./tests/3x3w3Options.txt > /dev/null 2>&1
 if [ $? -eq 139 ];
 then
   printf "$ARROW $ERROR Error Segfaulted\n"
