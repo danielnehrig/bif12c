@@ -5,6 +5,7 @@
 /*
  * Validates if the Current Choosen Letter is applicable
  * @param {char} choose - The var which holds the letter which got choosen
+ * @return {bool}
  */
 bool chooseValidation(char choose) {
   if (choose != 'a' && choose != 'w' && choose != 's' && choose != 'd' && choose != 'p' && choose != 'x') {
@@ -21,6 +22,7 @@ bool chooseValidation(char choose) {
  * @param {char} *fieldArr the array which holds the game field
  * @param {int} *posX X axis
  * @param {int} *posY Y axis
+ * @return {bool}
  */
 bool placeValidation(int ***player,char *fieldArr,int *posX,int *posY) {
   if (***player == 1 && (*(fieldArr + *posY * BOARD_SIZE + *posX) != 'x' && *(fieldArr + *posY * BOARD_SIZE + *posX) != 'o')) {
@@ -43,6 +45,7 @@ bool placeValidation(int ***player,char *fieldArr,int *posX,int *posY) {
  * @param {char} fieldArr
  * @param {int} posX
  * @param {int} posY
+ * @return {void}
  */
 void place(int **player,char *fieldArr,int *posX,int *posY,int *turns) {
   bool placed = false;
@@ -63,6 +66,7 @@ void place(int **player,char *fieldArr,int *posX,int *posY,int *turns) {
  * Validates the winner of the Game
  * @param {char} fieldArr
  * @param {int} turns
+ * @return {int}
  */
 int winValidation(char fieldArr[BOARD_SIZE][BOARD_SIZE], int *turns) {
   int winner = 0;
