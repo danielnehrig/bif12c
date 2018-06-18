@@ -32,7 +32,6 @@ static void readFile(const char *filename) {
 }
 
 int main(int argc, char **argv) {
-
     /*
      * this initialize the library and check potential ABI mismatches
      * between the version it was compiled for and the actual shared
@@ -48,5 +47,6 @@ int main(int argc, char **argv) {
     // this is to debug memory for regression tests
     xmlMemoryDump();
 
+    printf("Exit Success\n");
     return EXIT_SUCCESS;
 }
