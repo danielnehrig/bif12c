@@ -1,8 +1,16 @@
 CC=gcc
-LDFLAGS=-lxml2 -I/usr/local/include/libxml
+LDFLAGS=-I/usr/local/include/libxml -lxml2
 
-prog: readfile_xml.c
-	$(CC) $(LDFLAGS) -o prog readfile_xml.c
+all:
+	make xml
+	make csv
+
+xml: readfile_xml.c
+	$(CC) $(LDFLAGS) -o readfile_xml readfile_xml.c
+
+csv: readfile_csv.c
+	$(CC) -o readfile_csv readfile_csv.c
 
 clean:
-	rm ./prog
+	rm ./readfile_csv
+	rm ./readfile_xml
