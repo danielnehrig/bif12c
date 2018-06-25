@@ -37,19 +37,13 @@ int main () {
         exit (3);
     }
 
-    /*
-     * THIS IS THE PART THAT IS IMPORTANT FOR THE QUESTION!!
-     */
     char * strtok_res;
     strtok_res = strtok(buffer, ";");
     while (strtok_res != NULL)
     {
-        printf ("%s\n", strtok_res);
+        printf ("\n%s\n", strtok_res);
         strtok_res = strtok (NULL, ";");
     }
-    /*
-     * DONE!
-     */
 
 
 

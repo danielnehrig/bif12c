@@ -1,52 +1,118 @@
 /**
- * section: Parsing
- * synopsis: Parse an XML file to a tree save it into a struct and output struct and free it
- * purpose: Demonstrate the use of xmlReadFile() to read an XML file
- *          into a tree and and xmlFreeDoc() to free the resulting tree
+ * section: xmlReader
+ * synopsis: Parse an XML file with an xmlReader
+ * purpose: Demonstrate the use of xmlReaderForFile() to parse an XML file
+ *          and dump the informations about the nodes found in the process.
+ *          (Note that the XMLReader functions require libxml2 version later
+ *          than 2.6.)
+ * usage: reader1 <filename>
+ * test: reader1 test2.xml > reader1.tmp && diff reader1.tmp $(srcdir)/reader1.res
+ * author: Daniel Veillard
+ * copy: see Copyright for the status of this software.
  */
 
 #include <stdio.h>
-#include <libxml/parser.h>
-#include <libxml/tree.h>
+#include <libxml/xmlreader.h>
 
-struct Person {
-  char *familyName;
-  char *firstName;
-} Person, *myPerson;
+#ifdef LIBXML_READER_ENABLED
 
 /**
- * @filename: a filename or an URL
+ * processNode:
+ * @reader: the xmlReader
  *
- * Parse the resource and free the resulting tree
+ * Dump information about the current node
  */
-static void readFile(const char *filename) {
-    xmlDocPtr doc; /* the resulting document tree */
+static void
+processNode(xmlTextReaderPtr reader) {
+  const xmlChar *name, *value;
 
-    doc = xmlReadFile(filename, NULL, 0);
-    if (doc == NULL) {
-        fprintf(stderr, "Failed to parse %s\n", filename);
-        return;
+  name = xmlTextReaderConstName(reader);
+  if (name == NULL)
+    name = BAD_CAST "--";
+
+  value = xmlTextReaderConstValue(reader);
+
+  printf("%d %d %s %d %d", 
+      xmlTextReaderDepth(reader),
+      xmlTextReaderNodeType(reader),
+      name,
+      xmlTextReaderIsEmptyElement(reader),
+      xmlTextReaderHasValue(reader));
+  if (value == NULL)
+    printf("\n");
+  else {
+    if (xmlStrlen(value) > 40)
+      printf(" %.40s...\n", value);
+    else
+      printf(" %s\n", value);
+  }
+  xmlNodePtr node= xmlTextReaderCurrentNode(reader);
+  if (xmlTextReaderNodeType(reader)==1 && node && node->properties) {
+    xmlAttr* attribute = node->properties;
+    while(attribute && attribute->name && attribute->children)
+    {
+      xmlChar* value = xmlNodeListGetString(node->doc, attribute->children, 1);
+      printf ("Atributo %s: %s\n",attribute->name, value);
+      xmlFree(value);
+      attribute = attribute->next;
     }
+  }
+}
 
-    xmlFreeDoc(doc);
+/**
+ * streamFile:
+ * @filename: the file name to parse
+ *
+ * Parse and print information about an XML file.
+ */
+static void
+streamFile(const char *filename) {
+  xmlTextReaderPtr reader;
+  int ret;
+
+  reader = xmlReaderForFile(filename, NULL, 0);
+  if (reader != NULL) {
+    ret = xmlTextReaderRead(reader);
+    while (ret == 1) {
+      processNode(reader);
+      ret = xmlTextReaderRead(reader);
+    }
+    xmlFreeTextReader(reader);
+    if (ret != 0) {
+      fprintf(stderr, "%s : failed to parse\n", filename);
+    }
+  } else {
+    fprintf(stderr, "Unable to open %s\n", filename);
+  }
 }
 
 int main(int argc, char **argv) {
-    /*
-     * this initialize the library and check potential ABI mismatches
-     * between the version it was compiled for and the actual shared
-     * library used.
-     */
-    LIBXML_TEST_VERSION
+  if (argc != 2)
+    return(1);
 
-    readFile("test.xml");
+  /*
+   * this initialize the library and check potential ABI mismatches
+   * between the version it was compiled for and the actual shared
+   * library used.
+   */
+  LIBXML_TEST_VERSION
 
-    // Cleanup function for the XML library.
-    xmlCleanupParser();
+    streamFile(argv[1]);
 
-    // this is to debug memory for regression tests
-    xmlMemoryDump();
-
-    printf("Exit Success\n");
-    return EXIT_SUCCESS;
+  /*
+   * Cleanup function for the XML library.
+   */
+  xmlCleanupParser();
+  /*
+   * this is to debug memory for regression tests
+   */
+  xmlMemoryDump();
+  return(0);
 }
+
+#else
+int main(void) {
+  fprintf(stderr, "XInclude support not compiled in\n");
+  exit(1);
+}
+#endif
