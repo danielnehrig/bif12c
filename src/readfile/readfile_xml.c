@@ -65,8 +65,7 @@ processNode(xmlTextReaderPtr reader) {
  *
  * Parse and print information about an XML file.
  */
-static void
-streamFile(const char *filename) {
+static void streamFile(const char *filename) {
   xmlTextReaderPtr reader;
   int ret;
 
